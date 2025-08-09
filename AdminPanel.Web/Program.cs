@@ -1,3 +1,5 @@
+using AdminPanel.Data.Entities;
+using AdminPanel.Data.Entities.Identity;
 using AdminPanel.Persistence.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -8,12 +10,9 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<StoreContext>(options =>
     options.UseSqlServer(connectionString));
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
-{
-    options.SignIn.RequireConfirmedAccount = true;
-})
-            .AddEntityFrameworkStores<StoreContext>()
-            .AddDefaultTokenProviders();
+builder.Services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<StoreContext>()
+    .AddDefaultTokenProviders();
 
 builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
