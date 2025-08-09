@@ -19,4 +19,8 @@
     <ProjectReference Include="..\AdminPanel.Data\AdminPanel.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>
