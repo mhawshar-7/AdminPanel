@@ -1,3 +1,4 @@
+using AdminPanel.Application.Helpers;
 using AdminPanel.Data.Entities;
 using AdminPanel.Data.Entities.Identity;
 using AdminPanel.Persistence.Data;
@@ -17,6 +18,7 @@ builder.Services.AddIdentity<User, IdentityRole>(options => options.SignIn.Requi
 
 builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
+builder.Services.AddAutoMapper(typeof(MappingProfiles));
 
 var app = builder.Build();
 
