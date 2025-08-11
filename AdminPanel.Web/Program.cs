@@ -1,6 +1,9 @@
 using AdminPanel.Application.Helpers;
+using AdminPanel.Application.Implementations;
+using AdminPanel.Application.Interfaces;
 using AdminPanel.Data.Entities;
 using AdminPanel.Data.Entities.Identity;
+using AdminPanel.Data.Interfaces;
 using AdminPanel.Persistence.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -12,10 +15,27 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
     throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<StoreContext>(options =>
     options.UseSqlServer(connectionString));
-builder.Services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<StoreContext>()
-    .AddDefaultTokenProviders();
 
+builder.Services.AddIdentity<User, IdentityRole>(config =>
+{
+    config.SignIn.RequireConfirmedEmail = true;
+
+    // Setting password to min complexity.
+    config.Password.RequireDigit = false;
+    config.Password.RequireLowercase = false;
+    config.Password.RequireNonAlphanumeric = false;
+    config.Password.RequireUppercase = false;
+    config.Password.RequiredLength = 6;
+    config.Password.RequiredUniqueChars = 0;
+
+})
+.AddEntityFrameworkStores<StoreContext>()
+.AddDefaultTokenProviders();
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped<IIdentityService, IdentityService>();
+builder.Services.AddScoped<IIdentityRepository, IdentityRepository>();
 builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 builder.Services.AddAutoMapper(typeof(MappingProfiles));
