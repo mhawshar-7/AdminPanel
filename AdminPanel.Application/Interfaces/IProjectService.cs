@@ -1,5 +1,4 @@
 ﻿using AdminPanel.Application.Dtos;
-using AdminPanel.Data.Entities;
 namespace AdminPanel.Data.Interfaces
 {
     public interface IProjectService
