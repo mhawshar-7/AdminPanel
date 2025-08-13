@@ -9,6 +9,6 @@ namespace AdminPanel.Web.ViewComponents
         public IViewComponentResult Invoke(IEnumerable<ProjectDto> projects)
         {
             return View(projects);
-        }
+        }   
     }
 }
