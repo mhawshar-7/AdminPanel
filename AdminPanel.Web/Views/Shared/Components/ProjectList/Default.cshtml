@@ -1,0 +1,31 @@
+@using AdminPanel.Application.Dtos
+@model IEnumerable<ProjectDto>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Creation Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var project in Model)
+            {
+                <tr>
+                    <td>@project.Name</td>
+                    <td>@project.Description</td>
+                    <td>@project.CreatedDate?.ToString("yyyy-MM-dd")</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="3" class="text-center">No projects found.</td>
+            </tr>
+        }
+    </tbody>
+</table>
