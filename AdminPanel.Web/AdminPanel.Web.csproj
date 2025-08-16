@@ -18,4 +18,8 @@
     <ProjectReference Include="..\AdminPanel.Persistence\AdminPanel.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Identity\" />
+  </ItemGroup>
+
 </Project>
