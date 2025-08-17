@@ -18,9 +18,7 @@ builder.Services.AddDbContext<StoreContext>(options =>
 
 builder.Services.AddIdentity<User, IdentityRole>(config =>
 {
-    config.SignIn.RequireConfirmedEmail = true;
-
-    // Setting password to min complexity.
+    config.SignIn.RequireConfirmedEmail = false;
     config.Password.RequireDigit = false;
     config.Password.RequireLowercase = false;
     config.Password.RequireNonAlphanumeric = false;
@@ -32,6 +30,12 @@ builder.Services.AddIdentity<User, IdentityRole>(config =>
 .AddEntityFrameworkStores<StoreContext>()
 .AddDefaultTokenProviders();
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Identity/Account/Login";
+    options.LogoutPath = "/Identity/Account/Logout";
+    options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+});
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IIdentityService, IdentityService>();
@@ -42,6 +46,27 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddAutoMapper(typeof(MappingProfiles));
 
 var app = builder.Build();
+
+// --- Begin Database Migration and Seeding ---
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var loggerFactory = services.GetRequiredService<ILoggerFactory>();
+    try
+    {
+        var context = services.GetRequiredService<StoreContext>();
+        await context.Database.MigrateAsync();
+
+        var userManager = services.GetRequiredService<UserManager<User>>();
+        var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+        await IdentityDataSeeder.SeedUsersAndRolesAsync(userManager, roleManager); // Seed the data
+    }
+    catch (Exception ex)
+    {
+        var logger = loggerFactory.CreateLogger<Program>();
+        logger.LogError(ex, "An error occurred during database migration or seeding.");
+    }
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -57,7 +82,10 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.MapRazorPages();
+app.MapControllerRoute(
+    name: "areas",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

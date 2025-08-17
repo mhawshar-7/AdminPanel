@@ -6,6 +6,7 @@ namespace AdminPanel.Data.Interfaces
         Task<ProjectDto> GetById(int id);
         Task<IReadOnlyList<ProjectDto>> GetAll();
         Task Save(ProjectDto dto);
+        Task Remove(int id);
 
     }
 }
