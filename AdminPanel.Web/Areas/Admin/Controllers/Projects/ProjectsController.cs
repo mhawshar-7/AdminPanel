@@ -1,5 +1,10 @@
-﻿using AdminPanel.Data.Interfaces;
+﻿using AdminPanel.Application.Dtos;
+using AdminPanel.Data.Interfaces;
+using AdminPanel.Persistence.Data;
+using AdminPanel.Web.Areas.Admin.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace AdminPanel.Web.Areas.Admin.Controllers.Projects
 {
@@ -12,15 +17,60 @@ namespace AdminPanel.Web.Areas.Admin.Controllers.Projects
         {
             _projectService = projectService;
         }
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var projects = await _projectService.GetAll();
-            return View(projects);
+            var model = projects.Select(s => new ProjectViewModel
+            {
+                Id = s.Id,
+                Name = s.Name,
+                Description = s.Description,
+                ModifiedDate = s.CreatedDate?.ToString("dd/MM/yyyy")
+            }).ToList();
+            return View(model);
         }
 
-        public async Task<IActionResult> Edit(int? id)
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
         {
-            return View();
+            var dto = await _projectService.GetById(id);
+            ProjectViewModel model = null;
+            if (dto is not null)
+            {
+                model = new ProjectViewModel
+                {
+                    Id = dto.Id,
+                    Name = dto.Name,
+                    Description = dto.Description
+                };
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(ProjectViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var dto = new ProjectDto
+                {
+                    Id = model.Id,
+                    Name = model.Name,
+                    Description = model.Description,
+                };
+                await _projectService.Save(dto);
+            }
+            else
+            {
+                return View(model);
+            }
+            return RedirectToAction("Index", "Projects");
+        }
+        public async Task<ActionResult> Remove(int id)
+        {
+            await _projectService.Remove(id);
+            return RedirectToAction("Index", "Projects");
         }
     }
 }

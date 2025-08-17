@@ -16,13 +16,9 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<StoreContext>(options =>
     options.UseSqlServer(connectionString));
 
-//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<StoreContext>();
-
 builder.Services.AddIdentity<User, IdentityRole>(config =>
 {
-    config.SignIn.RequireConfirmedEmail = true;
-
-    // Setting password to min complexity.
+    config.SignIn.RequireConfirmedEmail = false;
     config.Password.RequireDigit = false;
     config.Password.RequireLowercase = false;
     config.Password.RequireNonAlphanumeric = false;
@@ -50,6 +46,27 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddAutoMapper(typeof(MappingProfiles));
 
 var app = builder.Build();
+
+// --- Begin Database Migration and Seeding ---
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var loggerFactory = services.GetRequiredService<ILoggerFactory>();
+    try
+    {
+        var context = services.GetRequiredService<StoreContext>();
+        await context.Database.MigrateAsync();
+
+        var userManager = services.GetRequiredService<UserManager<User>>();
+        var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+        await IdentityDataSeeder.SeedUsersAndRolesAsync(userManager, roleManager); // Seed the data
+    }
+    catch (Exception ex)
+    {
+        var logger = loggerFactory.CreateLogger<Program>();
+        logger.LogError(ex, "An error occurred during database migration or seeding.");
+    }
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

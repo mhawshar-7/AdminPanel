@@ -34,6 +34,13 @@ namespace AdminPanel.Application.Implementations
             return _mapper.Map<ProjectDto>(project);
         }
 
+        public async Task Remove(int id)
+        {
+            var project = await _unitOfWork.Repository<Project>().GetByIdAsync(id);
+            _unitOfWork.Repository<Project>().Delete(project);
+            await _unitOfWork.Complete();
+        }
+
         public async Task Save(ProjectDto dto)
         {
             Project project;
