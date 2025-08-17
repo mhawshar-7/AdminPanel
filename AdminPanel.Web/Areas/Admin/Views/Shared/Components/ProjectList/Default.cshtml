@@ -1,3 +1,4 @@
+@using System.Linq
 @using AdminPanel.Web.Areas.Admin.Models
 @model IEnumerable<ProjectViewModel>
 
@@ -17,7 +18,7 @@
                             <span class="path1"></span>
                             <span class="path2"></span>
                         </i>
-                        <input type="text" data-kt-ecommerce-category-filter="search" class="form-control form-control-solid w-250px ps-12" placeholder="Search Project" />
+                        <input type="text" data-project-filter="search" class="form-control form-control-solid w-250px ps-12" placeholder="Search Project" />
                     </div>
                     <!--end::Search-->
                 </div>
@@ -51,7 +52,7 @@
                         {
                             @foreach (var project in Model)
                             {
-                                <tr>
+                                <tr data-project-row="true" data-search="@((project.Name + " " + project.Description).Trim())">
                                     <td>
                                         <div class="form-check form-check-sm form-check-custom form-check-solid">
                                             <input class="form-check-input" type="checkbox" value="@project.Id" />
@@ -97,10 +98,13 @@
                         }
                         else
                         {
-                            <tr>
+                            <tr id="noProjectsStatic">
                                 <td colspan="4" class="text-center">No projects found.</td>
                             </tr>
                         }
+                        <tr id="noProjectsFiltered" class="d-none">
+                            <td colspan="4" class="text-center">No matching projects.</td>
+                        </tr>
                     </tbody>
                     <!--end::Table body-->
                 </table>
