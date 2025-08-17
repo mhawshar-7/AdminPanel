@@ -13,7 +13,6 @@ namespace AdminPanel.Persistence.Data
     {
         private readonly UserManager<User> _userManager;
 
-
         public IdentityRepository(UserManager<User> userManager)
         {
             _userManager = userManager;
