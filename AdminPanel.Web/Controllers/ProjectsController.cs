@@ -1,10 +1,7 @@
 ﻿using AdminPanel.Application.Dtos;
 using AdminPanel.Data.Interfaces;
-using AdminPanel.Persistence.Data;
 using AdminPanel.Web.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 
 namespace AdminPanel.Web.Controllers
 {

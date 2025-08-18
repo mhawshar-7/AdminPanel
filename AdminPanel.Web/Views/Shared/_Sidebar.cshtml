@@ -1,25 +1,25 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Rendering
 @{
-    string IsSectionActive(string area, string controller)
+    string IsSectionActive(string controller)
     {
         var routeData = ViewContext.RouteData;
-        var currentArea = routeData.Values["area"]?.ToString() ?? "";
         var currentController = routeData.Values["controller"]?.ToString();
 
-        if (area.Equals(currentArea, StringComparison.OrdinalIgnoreCase) &&
-            controller.Equals(currentController, StringComparison.OrdinalIgnoreCase))
+        if (controller.Equals(currentController, StringComparison.OrdinalIgnoreCase))
         {
             // "here" and "show" are the classes your theme uses to keep the accordion open
             return "here show";
         }
         return "";
     }
-    string IsActive(string area, string controller, string action = "Index")
+    string IsActive(string controller, string action = "Index")
     {
         var routeData = ViewContext.RouteData;
-        if (area == (routeData.Values["area"]?.ToString() ?? "") &&
-            controller == routeData.Values["controller"]?.ToString() &&
-            action == routeData.Values["action"]?.ToString())
+        var currentController = routeData.Values["controller"]?.ToString();
+        var currentAction = routeData.Values["action"]?.ToString();
+
+        if (controller.Equals(currentController, StringComparison.OrdinalIgnoreCase) &&
+            action.Equals(currentAction, StringComparison.OrdinalIgnoreCase))
         {
             return "active";
         }
@@ -53,7 +53,7 @@
                 <!--begin::Menu-->
                 <div class="menu menu-column menu-rounded menu-sub-indention fw-semibold fs-6" id="#kt_app_sidebar_menu" data-kt-menu="true" data-kt-menu-expand="false">
                     <!--begin:Menu item-->
-                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion @IsSectionActive("", "Home")">
+                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion @IsSectionActive("Home")">
                         <!--begin:Menu link-->
                         <span class="menu-link">
                             <span class="menu-icon">
@@ -73,7 +73,7 @@
                             <!--begin:Menu item-->
                             <div class="menu-item">
                                 <!--begin:Menu link-->
-                                <a class="menu-link @IsActive("", "Home", "Index")" asp-area="" asp-controller="Home" asp-action="Index">
+                                <a class="menu-link @IsActive("Home", "Index")" asp-area="" asp-controller="Home" asp-action="Index">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
@@ -150,7 +150,7 @@
                     </div>
                     <!--end:Menu item-->
                     <!--begin:Menu item-->
-                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion @IsSectionActive("Admin", "Projects")">
+                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion @IsSectionActive("Projects")">
                         <!--begin:Menu link-->
                         <span class="menu-link">
                             <span class="menu-icon">
@@ -168,7 +168,7 @@
                             <!--begin:Menu item-->
                             <div class="menu-item">
                                 <!--begin:Menu link-->
-                                <a class="menu-link @IsActive("Admin", "Projects", "Index")" asp-area="Admin" asp-controller="Projects" asp-action="Index">
+                                <a class="menu-link @IsActive("Projects", "Index")" asp-area="Admin" asp-controller="Projects" asp-action="Index">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
@@ -180,7 +180,7 @@
                             <!--begin:Menu item-->
                             <div class="menu-item">
                                 <!--begin:Menu link-->
-                                <a class="menu-link @IsActive("Admin", "Projects", "Edit")" asp-area="Admin" asp-controller="Projects" asp-action="Edit">
+                                <a class="menu-link @IsActive("Projects", "Edit")" asp-area="Admin" asp-controller="Projects" asp-action="Edit">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>

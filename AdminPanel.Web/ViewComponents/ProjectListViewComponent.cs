@@ -1,7 +1,5 @@
-using AdminPanel.Application.Dtos;
 using AdminPanel.Web.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 
 namespace AdminPanel.Web.ViewComponents
 {
