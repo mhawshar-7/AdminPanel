@@ -22,6 +22,12 @@ namespace AdminPanel.Application.Implementations
             _mapper = mapper;
         }
 
+        public async Task<int> Count()
+        {
+            var count = await _unitOfWork.Repository<Project>().Count();
+            return count;
+        }
+
         public async Task<IReadOnlyList<ProjectDto>> GetAll()
         {
             var list = await _unitOfWork.Repository<Project>().ListAllAsync();
