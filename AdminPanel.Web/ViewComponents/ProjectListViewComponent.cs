@@ -1,5 +1,5 @@
 using AdminPanel.Application.Dtos;
-using AdminPanel.Web.Areas.Admin.Models;
+using AdminPanel.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 

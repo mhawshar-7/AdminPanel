@@ -1,14 +1,13 @@
 ﻿using AdminPanel.Application.Dtos;
 using AdminPanel.Data.Interfaces;
 using AdminPanel.Persistence.Data;
-using AdminPanel.Web.Areas.Admin.Models;
+using AdminPanel.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
-namespace AdminPanel.Web.Areas.Admin.Controllers.Projects
+namespace AdminPanel.Web.Controllers
 {
-    [Area("Admin")]
     public class ProjectsController : Controller
     {
         private readonly IProjectService _projectService;
