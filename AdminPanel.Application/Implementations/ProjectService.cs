@@ -50,6 +50,7 @@ namespace AdminPanel.Application.Implementations
         public async Task Save(ProjectDto dto)
         {
             Project project;
+            var client = await _unitOfWork.Repository<Client>().GetByIdAsync(dto.ClientId);
             if (dto.Id == 0)
             {
                 project = new Project(dto.Name);
@@ -64,6 +65,11 @@ namespace AdminPanel.Application.Implementations
                 }
                 project.Name = dto.Name;
                 project.Description = dto.Description;
+                project.StartDate = dto.StartDate;
+                project.EndDate = dto.EndDate;
+                project.Status = dto.Status;
+                project.Budget = dto.Budget;
+                project.Client = client ?? throw new ArgumentNullException(nameof(client), "Client not found");
                 _unitOfWork.Repository<Project>().Update(project);
             }
         }
