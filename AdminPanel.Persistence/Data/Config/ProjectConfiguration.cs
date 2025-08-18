@@ -31,7 +31,8 @@ namespace AdminPanel.Persistence.Data.Config
 
             builder.HasOne(p => p.Client)
                    .WithMany(c => c.Projects)
-                   .HasForeignKey(p => p.ClientId);
+                   .HasForeignKey(p => p.ClientId)
+                   .IsRequired(false);
         }
     }
 }

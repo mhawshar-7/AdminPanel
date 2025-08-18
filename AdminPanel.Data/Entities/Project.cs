@@ -27,7 +27,7 @@ namespace AdminPanel.Data.Entities
         public DateTime? EndDate { get; set; }
         public ProjectStatus Status { get; set; }
         public decimal? Budget { get; set; }
-        public int ClientId { get; set; }
-        public virtual Client Client { get; set; }
+        public int? ClientId { get; set; }
+        public virtual Client? Client { get; set; }
     }
 }

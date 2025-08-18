@@ -3,8 +3,71 @@
 
 @{
     ViewData["Title"] = "Projects";
+
+    // Configure DataTable
+    var dataTableConfig = new DataTableConfiguration
+    {
+        Id = "projectsTable",
+        Title = "Projects Management",
+        AjaxUrl = Url.Action("GetProjectsData", "Projects"),
+        ServerSide = true,
+        Paging = true,
+        Searching = true,
+        Ordering = true,
+        PageLength = 10,
+        Responsive = true,
+        ShowCheckboxes = true,
+        ShowSearchBox = true,
+        SearchPlaceholder = "Search Projects...",
+        WrapInCard = true,
+        Columns = new List<DataTableColumn>
+        {
+            new DataTableColumn { Name = "name", Title = "Project Name", Sortable = true, Searchable = true, ClassName = "min-w-250px" },
+            new DataTableColumn { Name = "description", Title = "Description", Sortable = true, Searchable = true },
+            new DataTableColumn { Name = "modifiedDate", Title = "Creation Date", Sortable = true, Searchable = false, ClassName = "min-w-150px", Type = DataTableColumnType.Date }
+        },
+        ActionButtons = new List<DataTableActionButton>
+        {
+            new DataTableActionButton
+            {
+                Text = "Edit",
+                CssClass = "menu-link px-3",
+                Controller = "Projects",
+                Action = "Edit",
+                RouteParameter = "id",
+                Icon = "ki-duotone ki-pencil"
+            },
+            new DataTableActionButton
+            {
+                Text = "Delete",
+                CssClass = "menu-link px-3",
+                Controller = "Projects",
+                Action = "Remove",
+                RouteParameter = "id",
+                Icon = "ki-duotone ki-trash",
+                ConfirmAction = true,
+                ConfirmMessage = "Are you sure you want to delete this project?"
+            }
+        },
+        HeaderButtons = new List<DataTableActionButton>
+        {
+            new DataTableActionButton
+            {
+                Text = "Add Project",
+                CssClass = "btn btn-primary",
+                Controller = "Projects",
+                Action = "Edit",
+                Icon = "ki-duotone ki-plus"
+            }
+        }
+    };
 }
 
-<h1>Projects</h1>
+<!-- Using the new DataTable ViewComponent -->
+@await Component.InvokeAsync("DataTable", dataTableConfig)
 
+<hr class="my-5" />
+
+<h3>Traditional View (for comparison)</h3>
+<!-- Traditional table for comparison -->
 @await Component.InvokeAsync("ProjectList", new { projects = Model })

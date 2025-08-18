@@ -17,7 +17,6 @@
         var routeData = ViewContext.RouteData;
         var currentController = routeData.Values["controller"]?.ToString();
         var currentAction = routeData.Values["action"]?.ToString();
-
         if (controller.Equals(currentController, StringComparison.OrdinalIgnoreCase) &&
             action.Equals(currentAction, StringComparison.OrdinalIgnoreCase))
         {
