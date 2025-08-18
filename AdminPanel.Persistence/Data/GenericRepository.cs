@@ -14,7 +14,12 @@ namespace AdminPanel.Persistence.Data
 			_context = context;
 		}
 
-		public void Create(T entity)
+        public Task<int> Count()
+        {
+			return _context.Set<T>().CountAsync(x => !x.IsDeleted);
+        }
+
+        public void Create(T entity)
 		{
 			_context.Set<T>().Add(entity);
 		}
