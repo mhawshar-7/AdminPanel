@@ -19,6 +19,7 @@ namespace AdminPanel.Persistence.Data.Config
             builder.Property(p => p.StartDate)
                    .IsRequired();
 
+
             builder.Property(p => p.EndDate)
                    .IsRequired(false);
 
