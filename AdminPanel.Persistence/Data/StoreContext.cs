@@ -15,6 +15,7 @@ namespace AdminPanel.Persistence.Data
         }
 
         public DbSet<Project> Projects { get; set; }
+        public DbSet<Client> Clients { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

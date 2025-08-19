@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AdminPanel.Web.Areas.Admin.Models
+namespace AdminPanel.Web.Models
 {
     public class ProjectViewModel
     {
