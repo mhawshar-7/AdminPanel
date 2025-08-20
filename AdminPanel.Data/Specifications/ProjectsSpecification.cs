@@ -15,9 +15,11 @@ namespace AdminPanel.Data.Specifications
 
                 if (DateTime.TryParse(raw, out var searchDate))
                 {
+                    var dateOnly = searchDate.Date;
+
                     AddCriteria(p =>
-                        p.StartDate.Date == searchDate.Date ||
-                        (p.EndDate.HasValue && p.EndDate.Value.Date == searchDate.Date));
+                        (p.StartDate >= dateOnly && p.StartDate < dateOnly.AddDays(1)) ||
+                        (p.EndDate.HasValue && p.EndDate.Value >= dateOnly && p.EndDate.Value < dateOnly.AddDays(1)));
                 }
                 else
                 {
