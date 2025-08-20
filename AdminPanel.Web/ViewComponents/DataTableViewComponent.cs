@@ -1,4 +1,4 @@
-using AdminPanel.Web.Models;
+using AdminPanel.Web.Models.DataTable;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdminPanel.Web.ViewComponents

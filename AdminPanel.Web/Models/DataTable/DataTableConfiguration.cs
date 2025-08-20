@@ -1,4 +1,4 @@
-namespace AdminPanel.Web.Models
+namespace AdminPanel.Web.Models.DataTable
 {
     public class DataTableConfiguration
     {

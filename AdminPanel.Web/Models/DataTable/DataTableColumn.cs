@@ -1,4 +1,4 @@
-namespace AdminPanel.Web.Models
+namespace AdminPanel.Web.Models.DataTable
 {
     public class DataTableColumn
     {
@@ -9,7 +9,7 @@ namespace AdminPanel.Web.Models
         public bool Searchable { get; set; } = true;
         public string? Width { get; set; }
         public string? ClassName { get; set; }
-        public string? Render { get; set; } // JavaScript function for custom rendering
+        public string? Render { get; set; }
         public DataTableColumnType Type { get; set; } = DataTableColumnType.String;
     }
 
