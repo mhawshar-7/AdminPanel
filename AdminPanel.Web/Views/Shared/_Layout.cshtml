@@ -11,6 +11,7 @@
     <link href="~/css/style.bundle.css" rel="stylesheet" />
     <link href="~/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" />
     <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="~/plugins/global/plugins.bundle.js"></script>
 
 </head>
 <body id="kt_app_body" class="app-default" data-kt-app-layout="dark-sidebar" data-kt-app-header-fixed="true" data-kt-app-sidebar-enabled="true" data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-hoverable="true" data-kt-app-sidebar-push-header="true" data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" data-kt-app-toolbar-enabled="true">
@@ -24,6 +25,7 @@
                         <div id="kt_app_content" class="app-content flex-column-fluid">
                             <div id="kt_app_content_container" class="app-container container-fluid">
                                 @RenderBody()
+                                @RenderSection("Scripts", required: false)
                             </div>
                         </div>
                     </div>
@@ -35,8 +37,7 @@
     <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
         <i class="ki-duotone ki-arrow-up"><span class="path1"></span><span class="path2"></span></i>
     </div>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/plugins/global/plugins.bundle.js"></script>
+    @* <script src="~/plugins/global/plugins.bundle.js"></script> *@
     <script src="~/js/scripts.bundle.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script src="~/plugins/custom/datatables/datatables.bundle.js"></script>
