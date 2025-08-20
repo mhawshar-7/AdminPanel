@@ -58,10 +58,13 @@ namespace AdminPanel.Web.Controllers
                     id = s.Id,
                     name = s.Name,
                     description = s.Description,
+                    status = s.Status,
+                    startDate = s.StartDate.ToString("dd/MM/yyyy"),
+                    endDate = s.EndDate.HasValue ? s.EndDate.Value.ToString("dd/MM/yyyy") : null,
+                    budget = s.Budget.ToString("C"),
                     modifiedDate = s.CreatedDate?.ToString("dd/MM/yyyy")
                 }).ToList();
 
-                // Filter by search value
                 if (!string.IsNullOrEmpty(searchValue))
                 {
                     projectViewModels = projectViewModels.Where(x =>
@@ -73,23 +76,37 @@ namespace AdminPanel.Web.Controllers
                 // Total records after filtering
                 int recordsFiltered = projectViewModels.Count;
 
-                // Sorting
                 if (!string.IsNullOrEmpty(sortColumn) && !string.IsNullOrEmpty(sortDirection))
                 {
                     int columnIndex = Convert.ToInt32(sortColumn);
                     switch (columnIndex)
                     {
-                        case 0: // Name
+                        case 1: // Name
                             projectViewModels = sortDirection == "asc"
                                 ? projectViewModels.OrderBy(x => x.name).ToList()
                                 : projectViewModels.OrderByDescending(x => x.name).ToList();
                             break;
-                        case 1: // Description
+                        case 2: // Description
                             projectViewModels = sortDirection == "asc"
                                 ? projectViewModels.OrderBy(x => x.description).ToList()
                                 : projectViewModels.OrderByDescending(x => x.description).ToList();
                             break;
-                        case 2: // Modified Date
+                        case 3: // Status
+                            projectViewModels = sortDirection == "asc"
+                                ? projectViewModels.OrderBy(x => x.status).ToList()
+                                : projectViewModels.OrderByDescending(x => x.status).ToList();
+                            break;
+                        case 4: // Start Date
+                            projectViewModels = sortDirection == "asc"
+                                ? projectViewModels.OrderBy(x => x.startDate).ToList()
+                                : projectViewModels.OrderByDescending(x => x.startDate).ToList();
+                            break;
+                        case 5: // End Date
+                            projectViewModels = sortDirection == "asc"
+                                ? projectViewModels.OrderBy(x => x.endDate).ToList()
+                                : projectViewModels.OrderByDescending(x => x.endDate).ToList();
+                            break;
+                        case 6: // Modified Date
                             projectViewModels = sortDirection == "asc"
                                 ? projectViewModels.OrderBy(x => x.modifiedDate).ToList()
                                 : projectViewModels.OrderByDescending(x => x.modifiedDate).ToList();
