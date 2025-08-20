@@ -25,6 +25,9 @@
         {
             new DataTableColumn { Name = "name", Title = "Project Name", Sortable = true, Searchable = true, ClassName = "min-w-250px" },
             new DataTableColumn { Name = "description", Title = "Description", Sortable = true, Searchable = true },
+            new DataTableColumn { Name = "status", Title = "Status", Sortable = true, Searchable = true, ClassName = "min-w-100px" },
+            new DataTableColumn { Name = "startDate", Title = "Start Date", Sortable = true, Searchable = false, ClassName = "min-w-150px", Type = DataTableColumnType.Date },
+            new DataTableColumn { Name = "endDate", Title = "End Date", Sortable = true, Searchable = false, ClassName = "min-w-150px", Type = DataTableColumnType.Date },
             new DataTableColumn { Name = "modifiedDate", Title = "Creation Date", Sortable = true, Searchable = false, ClassName = "min-w-150px", Type = DataTableColumnType.Date }
         },
         ActionButtons = new List<DataTableActionButton>
