@@ -6,29 +6,14 @@ namespace AdminPanel.Data.Specifications
     public class ProjectsSpecification : BaseSpecification<Project>
     {
         public ProjectsSpecification(ProjectSpecParams projectParams)
-            : base(x => x.IsDeleted == false)
-        {
-            // If there's no search term, we don't need to add more criteria.
-            if (!string.IsNullOrWhiteSpace(projectParams.Search))
-            {
-                var raw = projectParams.Search.Trim();
-
-                if (DateTime.TryParse(raw, out var searchDate))
-                {
-                    var dateOnly = searchDate.Date;
-
-                    AddCriteria(p =>
-                        (p.StartDate >= dateOnly && p.StartDate < dateOnly.AddDays(1)) ||
-                        (p.EndDate.HasValue && p.EndDate.Value >= dateOnly && p.EndDate.Value < dateOnly.AddDays(1)));
-                }
-                else
-                {
-                    AddCriteria(p => p.Name.ToLower().Contains(raw.ToLower()) ||
-                    (p.Description != null && p.Description.ToLower().Contains(raw.ToLower())) ||
+            : base(p => 
+                    (p.Name.ToLower().Contains(projectParams.Search.ToLower()) ||
+                    (p.Description != null && p.Description.ToLower().Contains(projectParams.Search.ToLower())) ||
                     p.Status.ToString().Contains(projectParams.Search) ||
-                    (p.Budget != null && p.Budget.ToString().Contains(raw)));
-                }
-            }
+                    (p.Budget != null && p.Budget.ToString().Contains(projectParams.Search))) && 
+                    (p.IsDeleted == false)
+            )
+        {
             AddOrderBy(x => x.Name);
             ApplyPaging(projectParams.PageSize * (projectParams.PageIndex - 1),
                projectParams.PageSize);
