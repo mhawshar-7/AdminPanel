@@ -11,26 +11,13 @@ namespace AdminPanel.Data.Specifications
     public class ProjectCountSpecification : BaseSpecification<Project>
     {
         public ProjectCountSpecification(ProjectSpecParams projectParams)
-            : base(x => (x.IsDeleted == false) && (!projectParams.ClientId.HasValue || x.ClientId == projectParams.ClientId))
+            : base(x =>
+                    (x.Name.ToLower().Contains(projectParams.Search.ToLower()) ||
+                    (x.Description != null && x.Description.ToLower().Contains(projectParams.Search.ToLower())) ||
+                    x.Status.ToString().Contains(projectParams.Search) ||
+                    (x.Budget != null && x.Budget.ToString().Contains(projectParams.Search))) &&
+                    (x.IsDeleted == false) && (!projectParams.ClientId.HasValue || x.ClientId == projectParams.ClientId))
         {
-            if (!string.IsNullOrWhiteSpace(projectParams.Search))
-            {
-                var raw = projectParams.Search.Trim();
-
-                if (DateTime.TryParse(raw, out var searchDate))
-                {
-                    AddCriteria(p =>
-                        p.StartDate.Date == searchDate.Date ||
-                        (p.EndDate.HasValue && p.EndDate.Value.Date == searchDate.Date));
-                }
-                else
-                {
-                    AddCriteria(p => p.Name.ToLower().Contains(raw.ToLower()) ||
-                    (p.Description != null && p.Description.ToLower().Contains(raw.ToLower())) ||
-                    p.Status.ToString().Contains(projectParams.Search) ||
-                    (p.Budget != null && p.Budget.ToString().Contains(raw)));
-                }
-            }
         }
     }
 }
