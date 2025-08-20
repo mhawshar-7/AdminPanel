@@ -19,6 +19,11 @@ namespace AdminPanel.Persistence.Data
 			return _context.Set<T>().CountAsync(x => !x.IsDeleted);
         }
 
+        public async Task<int> CountAsync(ISpecification<T> spec)
+        {
+            return await ApplySpecification(spec).CountAsync();
+        }
+
         public void Create(T entity)
 		{
 			_context.Set<T>().Add(entity);
@@ -34,10 +39,21 @@ namespace AdminPanel.Persistence.Data
 			return await _context.Set<T>().FindAsync(id);
 		}
 
-		public async Task<IReadOnlyList<T>> ListAllAsync()
+        public async Task<T> GetEntityWithSpec(ISpecification<T> spec)
+        {
+            return await ApplySpecification(spec).FirstOrDefaultAsync();
+        }
+
+        public async Task<IReadOnlyList<T>> ListAllAsync()
 		{
 			return await _context.Set<T>().Where(x => !x.IsDeleted).ToListAsync();
 		}
+
+        public async Task<IReadOnlyList<T>> ListWithSpecAsync(ISpecification<T> spec)
+        {
+            return await ApplySpecification(spec).ToListAsync();
+        }
+
         public async Task<IReadOnlyList<T>> ListDeletedAsync()
         {
             return await _context.Set<T>().Where(x => x.IsDeleted).ToListAsync();
@@ -48,5 +64,10 @@ namespace AdminPanel.Persistence.Data
 			_context.Set<T>().Attach(entity);
 			_context.Entry(entity).State = EntityState.Modified;
 		}
-	}
+
+        private IQueryable<T> ApplySpecification(ISpecification<T> spec)
+        {
+            return SpecificationEvaluator<T>.GetQuery(_context.Set<T>().AsQueryable(), spec);
+        }
+    }
 }

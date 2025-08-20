@@ -28,9 +28,20 @@ namespace AdminPanel.Application.Implementations
             return count;
         }
 
+        public async Task<int> CountWithSpecAsync(ISpecification<Project> spec)
+        {
+            return await _unitOfWork.Repository<Project>().CountAsync(spec);
+        }
+
         public async Task<IReadOnlyList<ProjectDto>> GetAll()
         {
             var list = await _unitOfWork.Repository<Project>().ListAllAsync();
+            return _mapper.Map<IReadOnlyList<ProjectDto>>(list);
+        }
+
+        public async Task<IReadOnlyList<ProjectDto>> GetAllWithSpec(ISpecification<Project> spec)
+        {
+            var list = await _unitOfWork.Repository<Project>().ListWithSpecAsync(spec);
             return _mapper.Map<IReadOnlyList<ProjectDto>>(list);
         }
 
