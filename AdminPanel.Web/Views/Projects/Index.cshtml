@@ -69,9 +69,3 @@
 
 <!-- Using the new DataTable ViewComponent -->
 @await Component.InvokeAsync("DataTable", dataTableConfig)
-
-<hr class="my-5" />
-
-<h3>Traditional View (for comparison)</h3>
-<!-- Traditional table for comparison -->
-@await Component.InvokeAsync("ProjectList", new { projects = Model })

@@ -58,7 +58,7 @@ namespace AdminPanel.Web.Controllers
                     id = s.Id,
                     name = s.Name,
                     description = s.Description,
-                    status = s.Status,
+                    status = s.Status.ToString(),
                     startDate = s.StartDate.ToString("dd/MM/yyyy"),
                     endDate = s.EndDate.HasValue ? s.EndDate.Value.ToString("dd/MM/yyyy") : null,
                     budget = s.Budget.ToString("C"),
