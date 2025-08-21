@@ -61,10 +61,24 @@ namespace AdminPanel.Application.Implementations
         public async Task Save(ProjectDto dto)
         {
             Project project;
-            var client = await _unitOfWork.Repository<Client>().GetByIdAsync(dto.ClientId);
+            Client client = null;
+            if (dto.ClientId != 0)
+            {
+                client = await _unitOfWork.Repository<Client>().GetByIdAsync(dto.ClientId) ??
+                         throw new ArgumentNullException(nameof(client), "Client not found"); ;
+            }
+
             if (dto.Id == 0)
             {
-                project = new Project(dto.Name);
+                project = new Project(dto.Name)
+                {
+                    Description = dto.Description,
+                    StartDate = dto.StartDate == default ? DateTime.UtcNow : dto.StartDate,
+                    EndDate = dto.EndDate,
+                    Status = dto.Status,
+                    Budget = dto.Budget,
+                    Client = client
+                };
                 _unitOfWork.Repository<Project>().Create(project);
             }
             else
@@ -76,13 +90,14 @@ namespace AdminPanel.Application.Implementations
                 }
                 project.Name = dto.Name;
                 project.Description = dto.Description;
-                project.StartDate = dto.StartDate;
+                project.StartDate = dto.StartDate == default ? project.StartDate : dto.StartDate;
                 project.EndDate = dto.EndDate;
                 project.Status = dto.Status;
                 project.Budget = dto.Budget;
-                project.Client = client ?? throw new ArgumentNullException(nameof(client), "Client not found");
+                project.Client = client;
                 _unitOfWork.Repository<Project>().Update(project);
             }
+            await _unitOfWork.Complete();
         }
     }
 }

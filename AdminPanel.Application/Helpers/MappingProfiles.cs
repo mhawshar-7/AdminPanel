@@ -9,6 +9,9 @@ namespace AdminPanel.Application.Helpers
 		public MappingProfiles()
 		{
 			CreateMap<Project, ProjectDto>();
-		}
+			CreateMap<Project, IdNameDto>();
+			CreateMap<Client, ClientDto>();
+			CreateMap<Client, IdNameDto>();
+        }
 	}
 }
