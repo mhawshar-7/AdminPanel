@@ -40,6 +40,12 @@ namespace AdminPanel.Application.Implementations
             return _mapper.Map<ClientDto>(client);
         }
 
+        public async Task<IReadOnlyList<IdNameDto>> GetIdNameClients()
+        {
+            var list = await _unitOfWork.Repository<Client>().ListAllAsync();
+            return _mapper.Map<IReadOnlyList<IdNameDto>>(list);
+        }
+
         public async Task Remove(int id)
         {
             var client = await _unitOfWork.Repository<Client>().GetByIdAsync(id);

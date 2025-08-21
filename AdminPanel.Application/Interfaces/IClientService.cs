@@ -5,6 +5,7 @@ namespace AdminPanel.Data.Interfaces
     {
         Task<ClientDto> GetById(int id);
         Task<IReadOnlyList<ClientDto>> GetAll();
+        Task<IReadOnlyList<IdNameDto>> GetIdNameClients();
         Task Save(ClientDto dto);
         Task Remove(int id);
         Task<int> Count();

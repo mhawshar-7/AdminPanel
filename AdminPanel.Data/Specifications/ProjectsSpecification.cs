@@ -14,45 +14,44 @@ namespace AdminPanel.Data.Specifications
                     (p.IsDeleted == false)
             )
         {
-            AddOrderBy(x => x.Name);
             ApplyPaging(projectParams.PageSize * (projectParams.PageIndex - 1),
                projectParams.PageSize);
 
-            if (projectParams.ColumnIndex != 0 && !string.IsNullOrEmpty(projectParams.Sort))
+            if (!string.IsNullOrEmpty(projectParams.Sort))
             {
                 switch (projectParams.ColumnIndex)
-                {
-                    case 1: // Name
+                {   
+                    case 0: // Name
                         if (projectParams.Sort == "asc")
                             AddOrderBy(p => p.Name);
                         else
                             AddOrderByDescending(x => x.Name);
                         break;
-                    case 2: // Description
+                    case 1: // Description
                         if (projectParams.Sort == "asc")
                             AddOrderBy(p => p.Description);
                         else
                             AddOrderByDescending(x => x.Description);
                         break;
-                    case 3: // Status
+                    case 2: // Status
                         if (projectParams.Sort == "asc")
                             AddOrderBy(p => p.Status);
                         else
                             AddOrderByDescending(x => x.Status);
                         break;
-                    case 4: // Start Date
+                    case 3: // Start Date
                         if (projectParams.Sort == "asc")
                             AddOrderBy(p => p.StartDate);
                         else
                             AddOrderByDescending(x => x.StartDate);
                         break;
-                    case 5: // End Date
+                    case 4: // End Date
                         if (projectParams.Sort == "asc")
                             AddOrderBy(p => p.EndDate);
                         else
                             AddOrderByDescending(x => x.EndDate);
                         break;
-                    case 6: // Modified Date
+                    case 5: // Modified Date
                         if (projectParams.Sort == "asc")
                             AddOrderBy(p => p.ModifiedDate);
                         else

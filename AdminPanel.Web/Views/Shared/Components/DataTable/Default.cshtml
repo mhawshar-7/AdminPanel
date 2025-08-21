@@ -183,7 +183,8 @@
                             data: "@column.Name", // Maps to a property in the JSON data source.
                             name: "@column.Name", // Name for server-side processing.
                             orderable: @column.Sortable.ToString().ToLower(),
-                            searchable: @column.Searchable.ToString().ToLower()@if (!string.IsNullOrEmpty(column.ClassName))
+                            searchable: @column.Searchable.ToString().ToLower()
+                            @if (!string.IsNullOrEmpty(column.ClassName))
                             {
                                         <text>,
                                     className: "@column.ClassName"</text>
@@ -264,6 +265,17 @@
             }
         };
 
+        // Add default ordering: ModifiedDate DESC (if column exists)
+        (function() {
+            // Find index of column whose data property is 'modifieddate' (case-insensitive)
+            var modifiedIdx = config.columns.findIndex(function(col) {
+                return col && typeof col.data === 'string' && col.data.toLowerCase() === 'modifieddate';
+            });
+            if (modifiedIdx !== -1) {
+                tableConfig.order = [[modifiedIdx, 'desc']];
+            }
+        })();
+
         // Add AJAX configuration if server-side processing is enabled.
         if (config.serverSide && config.ajaxUrl) {
             tableConfig.ajax = {
@@ -272,7 +284,6 @@
                 dataType: "json"
             };
         }
-
 
         // Initialize the DataTable on the table element.
         var table = $('#@tableId').DataTable(tableConfig);
@@ -293,7 +304,7 @@
         $(document).on('click', '.confirm-action', function(e) {
             e.preventDefault(); // Prevent the link from being followed immediately.
             var url = $(this).attr('href');
-            var message = $(this).data('message') || 'Are you sure?';
+            var message = $(this).data('message') || 'Are you sure?';   
 
             // Use the browser's native confirm dialog.
             if (confirm(message)) {

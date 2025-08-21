@@ -48,7 +48,6 @@ namespace AdminPanel.Persistence.Data
 		{
 			return await _context.Set<T>().Where(x => !x.IsDeleted).ToListAsync();
 		}
-
         public async Task<IReadOnlyList<T>> ListWithSpecAsync(ISpecification<T> spec)
         {
             return await ApplySpecification(spec).ToListAsync();

@@ -17,7 +17,7 @@
         Ordering = true,
         PageLength = 10,
         Responsive = true,
-        ShowCheckboxes = true,
+        ShowCheckboxes = false,
         ShowSearchBox = true,
         SearchPlaceholder = "Search Projects...",
         WrapInCard = true,
@@ -67,5 +67,4 @@
     };
 }
 
-<!-- Using the new DataTable ViewComponent -->
 @await Component.InvokeAsync("DataTable", dataTableConfig)
