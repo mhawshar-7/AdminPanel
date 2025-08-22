@@ -1,0 +1,63 @@
+﻿@model AdminPanel.Web.Models.ClientViewModel
+@using Microsoft.AspNetCore.Mvc.Rendering
+@{
+    ViewData["Title"] = Model?.Id > 0 ? "Edit Client" : "Create Client";
+}
+
+<!--begin::Form wrapper-->
+<form id="client_form" asp-action="Edit" method="post" class="form d-flex flex-column flex-lg-row gap-7 gap-lg-10" novalidate>
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="Id" />
+    <!--end::Aside column-->
+    <!--begin::Main column-->
+    <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
+        <!--begin::General card-->
+        <div class="card card-flush py-4">
+            <div class="card-header">
+                <div class="card-title"><h2>General</h2></div>
+            </div>
+            <div class="card-body pt-0">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-5"></div>
+                <div class="mb-10 fv-row">
+                    <label asp-for="Name" class="required form-label">Client Name</label>
+                    <input asp-for="Name" class="form-control mb-2" placeholder="Client name" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                    <div class="text-muted fs-7">A user name is required and should be unique.</div>
+                </div>
+                <div class="mb-10 fv-row">
+                    <label asp-for="Email" class="form-label">Email</label>
+                    <input asp-for="Email" class="form-control mb-2" placeholder="Client email" type="email"/>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                    <div class="text-muted fs-7">Add an email.</div>
+                </div>
+                <div class="mb-10 fv-row">
+                    <label asp-for="Phone" class="form-label">Phone</label>
+                    <input asp-for="Phone" class="form-control mb-2" placeholder="Client phone" />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                    <div class="text-muted fs-7">Add a phone number.</div>
+                </div>
+                <div class="mb-10 fv-row">
+                    <label asp-for="Address" class="form-label">Address</label>
+                    <input asp-for="Address" class="form-control mb-2" placeholder="Client address" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                    <div class="text-muted fs-7">Add an address.</div>
+                </div>
+            </div>
+        </div>
+        <!--end::General card-->
+        <!--begin::Actions-->
+        <div class="d-flex justify-content-end">
+            <a asp-action="Index" class="btn btn-light me-5">Cancel</a>
+            <button type="submit" class="btn btn-primary" id="client_submit_btn">
+                <span class="indicator-label">Save Changes</span>
+                <span class="indicator-progress">Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+            </button>
+        </div>
+        <!--end::Actions-->
+    </div>
+    <!--end::Main column-->
+</form>
+<!--end::Form wrapper-->
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

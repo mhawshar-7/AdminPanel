@@ -72,5 +72,45 @@ namespace AdminPanel.Persistence.Data
         {
             return await _userManager.UpdateAsync(user);
         }
+
+        // Specification-based querying leveraging a lightweight evaluator not constrained to BaseEntity
+        public async Task<IReadOnlyList<User>> ListWithSpecAsync(ISpecification<User> spec)
+        {
+            return await ApplySpecification(spec).ToListAsync();
+        }
+
+        public async Task<int> CountAsync(ISpecification<User> spec)
+        {
+            return await ApplySpecification(spec).CountAsync();
+        }
+
+        public async Task<int> CountActiveAsync()
+        {
+            return await _userManager.Users.CountAsync(u => !u.IsDeleted);
+        }
+
+        private IQueryable<User> ApplySpecification(ISpecification<User> spec)
+        {
+            var query = _userManager.Users.AsQueryable().Where(u => !u.IsDeleted);
+
+            if (spec.Criteria != null)
+            {
+                query = query.Where(spec.Criteria);
+            }
+            if (spec.OrderBy != null)
+            {
+                query = query.OrderBy(spec.OrderBy);
+            }
+            if (spec.OrderByDescending != null)
+            {
+                query = query.OrderByDescending(spec.OrderByDescending);
+            }
+            if (spec.IsPagingEnabled)
+            {
+                query = query.Skip(spec.Skip).Take(spec.Take);
+            }
+            // Includes are ignored because IdentityUser related includes rarely used; adjust if navigation props added.
+            return query;
+        }
     }
 }

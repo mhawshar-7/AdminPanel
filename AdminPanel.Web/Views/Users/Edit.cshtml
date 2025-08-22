@@ -1,0 +1,75 @@
+@model AdminPanel.Web.Models.UserViewModel
+@{
+    ViewData["Title"] = Model?.Id != null ? "Edit User" : "Create User";
+}
+<!--begin::Form wrapper-->
+<form id="user_form" asp-action="Edit" method="post" class="form d-flex flex-column flex-lg-row gap-7 gap-lg-10" novalidate>
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="Id" />
+    <!--begin::Aside column-->
+    <div class="d-flex flex-column gap-7 w-100 mb-7 mb-lg-0">
+        <!--begin::Status (placeholder to mirror client/project layout)-->
+        <div class="card card-flush py-4">
+            <div class="card-header">
+                <div class="card-title"><h2>User Info</h2></div>
+            </div>
+            <div class="card-body pt-0">
+                <div class="mb-10 fv-row">
+                    <label asp-for="FirstName" class="required form-label">First Name</label>
+                    <input asp-for="FirstName" class="form-control mb-2" placeholder="First name" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="mb-0 fv-row">
+                    <label asp-for="LastName" class="required form-label">Last Name</label>
+                    <input asp-for="LastName" class="form-control mb-2" placeholder="Last name" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <!--end::Status card-->
+        <!--begin::Credentials card-->
+        <div class="card card-flush py-4">
+            <div class="card-header">
+                <div class="card-title"><h2>Credentials</h2></div>
+            </div>
+            <div class="card-body pt-0">
+                <div class="mb-10 fv-row">
+                    <label asp-for="UserName" class="required form-label">User Name</label>
+                    <input asp-for="UserName" class="form-control mb-2" placeholder="Username" />
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+                <div class="mb-10 fv-row">
+                    <label asp-for="Email" class="required form-label">Email</label>
+                    <input asp-for="Email" class="form-control mb-2" placeholder="Email" type="email" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                @if (string.IsNullOrEmpty(Model.Id))
+                {
+                    <div class="mb-10 fv-row">
+                        <label asp-for="Password" class="required form-label">Password</label>
+                        <input asp-for="Password" class="form-control mb-2" type="password" placeholder="Password" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="mb-0 fv-row">
+                        <label asp-for="ConfirmPassword" class="required form-label">Confirm Password</label>
+                        <input asp-for="ConfirmPassword" class="form-control mb-2" type="password" placeholder="Confirm password" />
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+                }
+            </div>
+        </div>
+        <!--end::Credentials card-->
+        <div class="d-flex justify-content-end">
+            <a asp-action="Index" class="btn btn-light me-5">Cancel</a>
+            <button type="submit" class="btn btn-primary" id="user_submit_btn">
+                <span class="indicator-label">Save Changes</span>
+                <span class="indicator-progress">Please wait... <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+            </button>
+        </div>
+    </div>
+    <!--end::Aside column-->
+</form>
+<!--end::Form wrapper-->
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
