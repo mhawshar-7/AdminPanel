@@ -19,11 +19,11 @@ namespace AdminPanel.Data.Specifications
             set => _pageSize = (value > MaxPageSize) ? MaxPageSize : value;
         }
         public string Sort { get; set; }
-        private string _search;
+        private string _search = string.Empty;
         public string Search
         {
             get => _search;
-            set => _search = value.ToLower();
+            set => _search = value?.ToLower() ?? string.Empty;
         }
     }
 }

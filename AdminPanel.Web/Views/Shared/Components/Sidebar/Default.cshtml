@@ -138,7 +138,39 @@
                             </div>
                         </div>
                     </div>
-                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion @IsSectionActive("Clients")">
+                        <span class="menu-link">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-abstract-41 fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                            </span>
+                            <span class="menu-title">Clients</span>
+                            <span class="menu-arrow"></span>
+                        </span>
+                        <div class="menu-sub menu-sub-accordion">
+                            <div class="menu-item">
+                                <a class="menu-link @IsActive("Clients", "Index")" asp-controller="Clients" asp-action="Index">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">My Clients</span>
+                                </a>
+                            </div>
+                            <div class="menu-item">
+                                <a class="menu-link @IsActive("Clients", "Edit")" asp-controller="Clients" asp-action="Edit">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">View Client</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion @IsSectionActive("Users")">
                         <span class="menu-link">
                             <span class="menu-icon">
                                 <i class="ki-duotone ki-abstract-28 fs-2">
@@ -150,7 +182,7 @@
                             <span class="menu-arrow"></span>
                         </span>
                         <div class="menu-sub menu-sub-accordion">
-                            <div data-kt-menu-trigger="click" class="menu-item menu-accordion mb-1">
+                            <div data-kt-menu-trigger="click" class="menu-item menu-accordion @IsSectionActive("Users") mb-1">
                                 <span class="menu-link">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
@@ -160,7 +192,7 @@
                                 </span>
                                 <div class="menu-sub menu-sub-accordion">
                                     <div class="menu-item">
-                                        <a class="menu-link" href="apps/user-management/users/list.html">
+                                        <a class="menu-link @IsActive("Users", "Index")" asp-controller="Users" asp-action="Index">
                                             <span class="menu-bullet">
                                                 <span class="bullet bullet-dot"></span>
                                             </span>
@@ -168,7 +200,7 @@
                                         </a>
                                     </div>
                                     <div class="menu-item">
-                                        <a class="menu-link" href="apps/user-management/users/view.html">
+                                        <a class="menu-link @IsActive("Users", "Edit")" asp-controller="Users" asp-action="Edit">
                                             <span class="menu-bullet">
                                                 <span class="bullet bullet-dot"></span>
                                             </span>

@@ -1,14 +1,14 @@
-﻿@using AdminPanel.Web.Models
+@using AdminPanel.Web.Models
 @using AdminPanel.Web.Models.DataTable
 @{
-    ViewData["Title"] = "Projects";
+    ViewData["Title"] = "Users";
 
     // Configure DataTable
     var dataTableConfig = new DataTableConfiguration
     {
-        Id = "projectsTable",
-        Title = "Projects Management",
-        AjaxUrl = Url.Action("GetProjectsData", "Projects"),
+        Id = "usersTable",
+        Title = "Users Management",
+        AjaxUrl = Url.Action("GetUsersData", "Users"),
         ServerSide = true,
         Paging = true,
         Searching = true,
@@ -17,16 +17,14 @@
         Responsive = true,
         ShowCheckboxes = false,
         ShowSearchBox = true,
-        SearchPlaceholder = "Search Projects...",
+        SearchPlaceholder = "Search Users...",
         WrapInCard = true,
         Columns = new List<DataTableColumn>
         {
-            new DataTableColumn { Name = "name", Title = "Project Name", Sortable = true, Searchable = true, ClassName = "min-w-250px" },
-            new DataTableColumn { Name = "description", Title = "Description", Sortable = true, Searchable = true },
-            new DataTableColumn { Name = "status", Title = "Status", Sortable = true, Searchable = true, ClassName = "min-w-100px" },
-            new DataTableColumn { Name = "startDate", Title = "Start Date", Sortable = true, Searchable = false, ClassName = "min-w-150px", Type = DataTableColumnType.Date },
-            new DataTableColumn { Name = "endDate", Title = "End Date", Sortable = true, Searchable = false, ClassName = "min-w-150px", Type = DataTableColumnType.Date },
-            new DataTableColumn { Name = "modifiedDate", Title = "Creation Date", Sortable = true, Searchable = false, ClassName = "min-w-150px", Type = DataTableColumnType.Date }
+            new DataTableColumn { Name = "firstName", Title = "First Name", Sortable = true, Searchable = true, ClassName = "min-w-250px" },
+            new DataTableColumn { Name = "lastName", Title = "Last Name", Sortable = true, Searchable = true, ClassName = "min-w-250px" },
+            new DataTableColumn { Name = "email", Title = "Email", Sortable = true, Searchable = true, ClassName = "min-w-250px" },
+            new DataTableColumn { Name = "userName", Title = "User Name", Sortable = true, Searchable = true, ClassName = "min-w-250px" },
         },
         ActionButtons = new List<DataTableActionButton>
         {
@@ -34,7 +32,7 @@
             {
                 Text = "Edit",
                 CssClass = "menu-link px-3",
-                Controller = "Projects",
+                Controller = "Users",
                 Action = "Edit",
                 RouteParameter = "id",
                 Icon = "ki-duotone ki-pencil"
@@ -43,7 +41,7 @@
             {
                 Text = "Delete",
                 CssClass = "menu-link px-3",
-                Controller = "Projects",
+                Controller = "Users",
                 Action = "Remove",
                 RouteParameter = "id",
                 Icon = "ki-duotone ki-trash",
@@ -55,9 +53,9 @@
         {
             new DataTableActionButton
             {
-                Text = "Add Project",
+                Text = "Add User",
                 CssClass = "btn btn-primary",
-                Controller = "Projects",
+                Controller = "Users",
                 Action = "Edit",
                 Icon = "ki-duotone ki-plus"
             }

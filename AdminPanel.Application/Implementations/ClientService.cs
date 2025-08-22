@@ -55,23 +55,39 @@ namespace AdminPanel.Application.Implementations
 
         public async Task Save(ClientDto dto)
         {
-            //Project project;
-            //if (dto.Id == 0)
-            //{
-            //    project = new Client(dto.Name);
-            //    _unitOfWork.Repository<Project>().Create(project);
-            //}
-            //else
-            //{
-            //    project = await _unitOfWork.Repository<Project>().GetByIdAsync(dto.Id);
-            //    if (project == null)
-            //    {
-            //        throw new ArgumentNullException(nameof(project), "Project not found");
-            //    }
-            //    project.Name = dto.Name;
-            //    project.Description = dto.Description;
-            //    _unitOfWork.Repository<Project>().Update(project);
-            //}
+            Client client;
+            if (dto.Id == 0)
+            {
+                client = new Client(dto.Name, dto.Email)
+                {
+                    Phone = dto.Phone,
+                    Address = dto.Address
+                };
+                _unitOfWork.Repository<Client>().Create(client);
+            }
+            else
+            {
+                client = await _unitOfWork.Repository<Client>().GetByIdAsync(dto.Id);
+                if (client != null)
+                {
+                    client.Name = dto.Name;
+                    client.Email = dto.Email;
+                    client.Phone = dto.Phone;
+                    client.Address = dto.Address;
+                    _unitOfWork.Repository<Client>().Update(client);
+                }
+            }
+            await _unitOfWork.Complete();
+        }
+
+        public async Task<IReadOnlyList<ClientDto>> GetAllWithSpec(ISpecification<Client> spec)
+        {
+            var list = await _unitOfWork.Repository<Client>().ListWithSpecAsync(spec);
+            return _mapper.Map<IReadOnlyList<ClientDto>>(list);
+        }
+        public async Task<int> CountWithSpecAsync(ISpecification<Client> spec)
+        {
+            return await _unitOfWork.Repository<Client>().CountAsync(spec);
         }
     }
 }

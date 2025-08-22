@@ -127,5 +127,21 @@ namespace AdminPanel.Application.Implementations
 
             return await _identityRepository.UpdateAsync(user);
         }
+
+        public async Task<IReadOnlyList<UserDto>> GetAllWithSpec(ISpecification<User> spec)
+        {
+            var list = await _identityRepository.ListWithSpecAsync(spec);
+            return _mapper.Map<IReadOnlyList<UserDto>>(list);
+        }
+
+        public async Task<int> Count()
+        {
+            return await _identityRepository.CountActiveAsync();
+        }
+
+        public async Task<int> CountWithSpecAsync(ISpecification<User> spec)
+        {
+            return await _identityRepository.CountAsync(spec);
+        }
     }
 }

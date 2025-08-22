@@ -1,8 +1,9 @@
 using AdminPanel.Data.Entities;
+using AdminPanel.Data.Entities.Identity;
 
 namespace AdminPanel.Data.Interfaces
 {
-    public interface IGenericRepository<T> where T : BaseEntity
+    public interface IGenericRepository<T>
     {
         Task<T> GetByIdAsync(int id);
         Task<IReadOnlyList<T>> ListAllAsync();

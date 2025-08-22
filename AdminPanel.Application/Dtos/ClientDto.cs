@@ -15,6 +15,7 @@ namespace AdminPanel.Application.Dtos
         public string Email { get; set; }
         public string? Phone { get; set; }
         public string? Address { get; set; }
+        public DateTime? ModifiedDate { get; set; }
         public virtual ICollection<Project> Projects { get; set; } = new HashSet<Project>();
     }
 }

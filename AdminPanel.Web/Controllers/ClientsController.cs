@@ -8,14 +8,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace AdminPanel.Web.Controllers
 {
-    public class ProjectsController : Controller
+    public class ClientsController : Controller
     {
-        private readonly IProjectService _projectService;
         private readonly IClientService _clientService;
 
-        public ProjectsController(IProjectService projectService, IClientService clientService)
+        public ClientsController(IClientService clientService)
         {
-            _projectService = projectService;
             _clientService = clientService;
         }
 
@@ -25,14 +23,8 @@ namespace AdminPanel.Web.Controllers
             return View();
         }
 
-        [HttpGet]
-        public IActionResult Examples()
-        {
-            return View();
-        }
-
         [HttpPost]
-        public async Task<IActionResult> GetProjectsData()
+        public async Task<IActionResult> GetClientsData()
         {
             try
             {
@@ -43,7 +35,7 @@ namespace AdminPanel.Web.Controllers
                 var sortColumn = Request.Form["order[0][column]"].FirstOrDefault();
                 var sortDirection = Request.Form["order[0][dir]"].FirstOrDefault();
 
-                var projectSpecParams = new ProjectSpecParams
+                var clientSpecParams = new ClientSpecParams
                 {
                     PageIndex = int.TryParse(start, out var s) ? (s / (int.TryParse(length, out var l) ? l : 10)) + 1 : 1,
                     PageSize = int.TryParse(length, out var len) ? len : 10,
@@ -52,23 +44,21 @@ namespace AdminPanel.Web.Controllers
                     ColumnIndex = int.TryParse(sortColumn, out var col) ? col : 0
                 };
 
-                var spec = new ProjectsSpecification(projectSpecParams);
-                var countSpec = new ProjectCountSpecification(projectSpecParams);
+                var spec = new ClientsSpecification(clientSpecParams);
+                var countSpec = new ClientsCountSpecification(clientSpecParams);
 
-                var projects = await _projectService.GetAllWithSpec(spec);
-                var totalCount = await _projectService.Count();
-                var countFiltered = await _projectService.CountWithSpecAsync(countSpec);
+                var clients = await _clientService.GetAllWithSpec(spec);
+                var totalCount = await _clientService.Count();
+                var countFiltered = await _clientService.CountWithSpecAsync(countSpec);
 
-                var data = projects.Select(s => new
+                var data = clients.Select(s => new
                 {
                     id = s.Id,
                     name = s.Name,
-                    description = s.Description,
-                    status = s.Status.ToString(),
-                    startDate = s.StartDate.ToString("dd/MM/yyyy"),
-                    endDate = s.EndDate.HasValue ? s.EndDate.Value.ToString("dd/MM/yyyy") : null,
-                    budget = s.Budget.ToString("C"),
-                    modifiedDate = s.CreatedDate?.ToString("dd/MM/yyyy")
+                    email = s.Email,
+                    phone = s.Phone,
+                    address = s.Address,
+                    modifiedDate = s.ModifiedDate?.ToString("dd/MM/yyyy")
                 }).ToList();
 
                 return Json(new
@@ -88,62 +78,51 @@ namespace AdminPanel.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
-            ProjectViewModel model = new();
+            ClientViewModel model = new();
             var clients = await _clientService.GetIdNameClients();
             if (id.HasValue && id.Value > 0)
             {
-                var dto = await _projectService.GetById(id.Value);
+                var dto = await _clientService.GetById(id.Value);
                 if (dto is not null)
                 {
-                    model = new ProjectViewModel
+                    model = new ClientViewModel
                     {
                         Id = dto.Id,
                         Name = dto.Name,
-                        Description = dto.Description,
-                        StartDate = dto.StartDate,
-                        EndDate = dto.EndDate,
-                        Status = dto.Status,
-                        Budget = dto.Budget,
-                        ClientId = dto.ClientId
+                        Email = dto.Email,
+                        Phone = dto.Phone,
+                        Address = dto.Address
                     };
                 }
             }
-            model.Clients = clients.Select(x => new SelectListItem
-            {
-                Value = x.Id.ToString(),
-                Text = x.Name
-            }).ToList();
             return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(ProjectViewModel model)
+        public async Task<IActionResult> Edit(ClientViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            var dto = new ProjectDto
+            var dto = new ClientDto
             {
                 Id = model.Id,
                 Name = model.Name,
-                Description = model.Description,
-                StartDate = model.StartDate,
-                EndDate = model.EndDate,
-                Status = model.Status,
-                Budget = model.Budget ?? 0,
-                ClientId = model.ClientId ?? 0
+                Email = model.Email,
+                Phone = model.Phone,
+                Address = model.Address
             };
-            await _projectService.Save(dto);
-            return RedirectToAction("Index", "Projects");
+            await _clientService.Save(dto);
+            return RedirectToAction("Index", "Clients");
         }
 
         public async Task<ActionResult> Remove(int id)
         {
-            await _projectService.Remove(id);
-            return RedirectToAction("Index", "Projects");
+            await _clientService.Remove(id);
+            return RedirectToAction("Index", "Clients");
         }
     }
 }
