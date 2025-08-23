@@ -1,10 +1,11 @@
-﻿using AdminPanel.Data.Entities;
+﻿using AdminPanel.Application.Interfaces;
+using AdminPanel.Data.Entities;
 
 namespace AdminPanel.Data.Interfaces
 {
 	public interface IUnitOfWork
 	{
-		IGenericRepository<TEntity> Repository<TEntity>() where TEntity: BaseEntity;
+		IGenericRepository<TEntity> Repository<TEntity>() where TEntity: class;
 		Task<int> Complete();
 	}
 }

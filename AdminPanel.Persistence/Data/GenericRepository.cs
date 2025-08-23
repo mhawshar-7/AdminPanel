@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AdminPanel.Persistence.Data
 {
-	public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
+	public class GenericRepository<T> : IGenericRepository<T> where T : class, ISoftDeletable
 	{
 		private readonly StoreContext _context;
 

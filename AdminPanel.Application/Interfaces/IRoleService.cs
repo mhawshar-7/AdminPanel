@@ -6,12 +6,13 @@ using Microsoft.AspNetCore.Identity;
 
 namespace AdminPanel.Application.Interfaces
 {
-    public interface IIdentityService
+    public interface IRoleService
     {
         Task<IdentityResult> AddUserToRoleAsync(string userId, string roleName);
-        Task<IdentityResult> RemoveUserFromRoleAsync(string userId, string roleName);
         Task<IList<string>> GetUserRolesAsync(string userId);
-        Task<IdentityResult> DeleteUserAsync(string userId);
-        Task<IdentityResult> UpdateUserAsync(UserDto userDto);
+        Task<IdentityResult> RemoveUserFromRoleAsync(string userId, string roleName);
+        Task<IReadOnlyList<UserDto>> GetAllWithSpec(ISpecification<User> spec);
+        Task<int> Count();
+        Task<int> CountWithSpecAsync(ISpecification<User> spec);
     }
 }

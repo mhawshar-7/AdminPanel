@@ -1,4 +1,5 @@
-﻿using AdminPanel.Data.Entities;
+﻿using AdminPanel.Application.Interfaces;
+using AdminPanel.Data.Entities;
 using AdminPanel.Data.Interfaces;
 using System.Collections;
 
@@ -17,7 +18,7 @@ namespace AdminPanel.Persistence.Data
 			return await _context.SaveChangesAsync();
 		}
 
-		public IGenericRepository<TEntity> Repository<TEntity>() where TEntity : BaseEntity
+		public IGenericRepository<TEntity> Repository<TEntity>() where TEntity : class
 		{
 			if (_repositories == null) _repositories = new Hashtable();
 

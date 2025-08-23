@@ -10,18 +10,17 @@ namespace AdminPanel.Web.Controllers
     [Authorize]
     public class UsersController : Controller
     {
-        private readonly IIdentityService _identityService;
+        private readonly IUserService _userService;
 
-        public UsersController(IIdentityService identityService)
+        public UsersController(IUserService userService)
         {
-            _identityService = identityService;
+            _userService = userService;
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var users = await _identityService.GetAllUsersAsync();
-            return View(users);
+            return View();
         }
 
         [HttpPost]
@@ -48,9 +47,9 @@ namespace AdminPanel.Web.Controllers
                 var spec = new UsersSpecification(userSpecParams);
                 var countSpec = new UsersCountSpecification(userSpecParams);
 
-                var users = await _identityService.GetAllWithSpec(spec);
-                var totalCount = await _identityService.Count();
-                var countFiltered = await _identityService.CountWithSpecAsync(countSpec);
+                var users = await _userService.GetAllWithSpec(spec);
+                var totalCount = await _userService.Count();
+                var countFiltered = await _userService.CountWithSpecAsync(countSpec);
 
                 var data = users.Select(s => new
                 {
@@ -82,7 +81,7 @@ namespace AdminPanel.Web.Controllers
             {
                 return View(new UserViewModel());
             }
-            var user = await _identityService.GetUserByIdAsync(id);
+            var user = await _userService.GetUserByIdAsync(id);
             if (user == null) return NotFound();
             var vm = new UserViewModel
             {
@@ -115,7 +114,7 @@ namespace AdminPanel.Web.Controllers
                     LastName = model.LastName,
                     Password = model.Password!
                 };
-                var result = await _identityService.RegisterAsync(registerDto);
+                var result = await _userService.CreateUserAsync(registerDto);
                 if (!result.Succeeded)
                 {
                     foreach (var error in result.Errors)
@@ -136,7 +135,7 @@ namespace AdminPanel.Web.Controllers
                     FirstName = model.FirstName,
                     LastName = model.LastName
                 };
-                var result = await _identityService.UpdateUserAsync(dto);
+                var result = await _userService.UpdateUserAsync(dto);
                 if (!result.Succeeded)
                 {
                     foreach (var error in result.Errors)
@@ -154,7 +153,7 @@ namespace AdminPanel.Web.Controllers
         public async Task<IActionResult> Delete(string id)
         {
             if (string.IsNullOrEmpty(id)) return BadRequest();
-            var result = await _identityService.DeleteUserAsync(id);
+            var result = await _userService.DeleteUserAsync(id);
             if (!result.Succeeded)
             {
                 TempData["Error"] = string.Join("; ", result.Errors.Select(e => e.Description));
