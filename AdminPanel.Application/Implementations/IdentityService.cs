@@ -11,12 +11,14 @@ namespace AdminPanel.Application.Implementations
     public class IdentityService : IIdentityService
     {
         private readonly IMapper _mapper;
-        private readonly IIdentityRepository _identityRepository;
+        private readonly IIdentityRepository<User> _identityRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public IdentityService(IMapper mapper, IIdentityRepository identityRepository)
+        public IdentityService(IMapper mapper, IIdentityRepository<User> identityRepository, IUnitOfWork unitOfWork)
         {
             _mapper = mapper;
             _identityRepository = identityRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<IdentityResult> RegisterAsync(RegisterDto registerDto)

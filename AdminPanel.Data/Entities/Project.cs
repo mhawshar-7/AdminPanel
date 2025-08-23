@@ -1,15 +1,6 @@
-﻿using AdminPanel.Data.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AdminPanel.Data.Entities
+﻿namespace AdminPanel.Data.Entities
 {
-    public class Project: BaseEntity, ISoftDeletable
+    public class Project: BaseEntity
     {
         public Project(string name)
         {

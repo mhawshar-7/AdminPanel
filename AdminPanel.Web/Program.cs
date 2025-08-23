@@ -38,8 +38,8 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-builder.Services.AddScoped<IIdentityService, IdentityService>();
-builder.Services.AddScoped<IIdentityRepository, IdentityRepository>();
+builder.Services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddRazorPages();

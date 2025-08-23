@@ -4,7 +4,7 @@ using AdminPanel.Data.Interfaces;
 
 namespace AdminPanel.Application.Interfaces
 {
-    public interface IIdentityRepository<T>
+    public interface IUserRepository
     {
         Task<IdentityResult> CreateAsync(User user, string password);
         Task<IdentityResult> UpdateAsync(User user);
@@ -12,13 +12,6 @@ namespace AdminPanel.Application.Interfaces
         Task<User> FindByEmailAsync(string email);
         Task<User> FindByNameAsync(string username);
         Task<IReadOnlyList<User>> GetAllUsersAsync();
-        Task<IdentityResult> AddToRoleAsync(User user, string roleName);
-        Task<IdentityResult> RemoveFromRoleAsync(User user, string roleName);
-        Task<IList<string>> GetRolesAsync(User user);
         Task<IdentityResult> ChangePasswordAsync(User user, string oldPassword, string newPassword);
-        Task<IdentityResult> ResetPasswordAsync(User user, string token, string newPassword);
-        Task<IReadOnlyList<T>> ListWithSpecAsync(ISpecification<T> spec);
-        Task<int> CountAsync(ISpecification<T> spec);
-        Task<int> CountActiveAsync();
     }
 }

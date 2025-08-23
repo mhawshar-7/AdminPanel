@@ -3,19 +3,18 @@ using AdminPanel.Data.Entities.Identity;
 using AdminPanel.Data.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AdminPanel.Persistence.Data
 {
-    public class IdentityRepository : IIdentityRepository
+    public class IdentityRepository<T> : IIdentityRepository<T> where T : class
     {
         private readonly UserManager<User> _userManager;
+        private readonly StoreContext _context;
 
-        public IdentityRepository(UserManager<User> userManager)
+        public IdentityRepository(UserManager<User> userManager, StoreContext context)
         {
             _userManager = userManager;
+            _context = context;
         }
 
         public async Task<IdentityResult> AddToRoleAsync(User user, string roleName)
@@ -73,13 +72,12 @@ namespace AdminPanel.Persistence.Data
             return await _userManager.UpdateAsync(user);
         }
 
-        // Specification-based querying leveraging a lightweight evaluator not constrained to BaseEntity
-        public async Task<IReadOnlyList<User>> ListWithSpecAsync(ISpecification<User> spec)
+        public async Task<IReadOnlyList<T>> ListWithSpecAsync(ISpecification<T> spec)
         {
             return await ApplySpecification(spec).ToListAsync();
         }
 
-        public async Task<int> CountAsync(ISpecification<User> spec)
+        public async Task<int> CountAsync(ISpecification<T> spec)
         {
             return await ApplySpecification(spec).CountAsync();
         }
@@ -89,28 +87,28 @@ namespace AdminPanel.Persistence.Data
             return await _userManager.Users.CountAsync(u => !u.IsDeleted);
         }
 
-        private IQueryable<User> ApplySpecification(ISpecification<User> spec)
+        private IQueryable<T> ApplySpecification(ISpecification<T> spec)
         {
-            var query = _userManager.Users.AsQueryable().Where(u => !u.IsDeleted);
+            return SpecificationEvaluator<T>.GetQuery(_context.Set<T>().AsQueryable(), spec);
+            //var query = _userManager.Users.AsQueryable().Where(u => !u.IsDeleted);
 
-            if (spec.Criteria != null)
-            {
-                query = query.Where(spec.Criteria);
-            }
-            if (spec.OrderBy != null)
-            {
-                query = query.OrderBy(spec.OrderBy);
-            }
-            if (spec.OrderByDescending != null)
-            {
-                query = query.OrderByDescending(spec.OrderByDescending);
-            }
-            if (spec.IsPagingEnabled)
-            {
-                query = query.Skip(spec.Skip).Take(spec.Take);
-            }
-            // Includes are ignored because IdentityUser related includes rarely used; adjust if navigation props added.
-            return query;
+            //if (spec.Criteria != null)
+            //{
+            //    query = query.Where(spec.Criteria);
+            //}
+            //if (spec.OrderBy != null)
+            //{
+            //    query = query.OrderBy(spec.OrderBy);
+            //}
+            //if (spec.OrderByDescending != null)
+            //{
+            //    query = query.OrderByDescending(spec.OrderByDescending);
+            //}
+            //if (spec.IsPagingEnabled)
+            //{
+            //    query = query.Skip(spec.Skip).Take(spec.Take);
+            //}
+            //return query;
         }
     }
 }

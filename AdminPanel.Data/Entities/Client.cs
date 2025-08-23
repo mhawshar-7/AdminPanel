@@ -1,14 +1,6 @@
-﻿using AdminPanel.Data.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AdminPanel.Data.Entities
+﻿namespace AdminPanel.Data.Entities
 {
-    public class Client: BaseEntity, ISoftDeletable
+    public class Client: BaseEntity
     {
         public Client(string name, string email)
         {
