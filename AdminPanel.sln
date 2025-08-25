@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminPanel.Application", "A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminPanel.Persistence", "AdminPanel.Persistence\AdminPanel.Persistence.csproj", "{34358FBB-74F5-4E5B-BE1E-66CFD1D176B3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{F2A468C2-E599-4E78-841F-45A0D48314FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +40,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7299D3B3-F8D3-475A-8747-103FC5FAEFF9} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{07603DBB-A3D5-4906-85EB-37C5FC93DF4D} = {F2A468C2-E599-4E78-841F-45A0D48314FF}
+		{F52351F7-37C7-4B1C-80ED-B8CE050983BA} = {F2A468C2-E599-4E78-841F-45A0D48314FF}
+		{34358FBB-74F5-4E5B-BE1E-66CFD1D176B3} = {F2A468C2-E599-4E78-841F-45A0D48314FF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BB5816E3-7014-483D-9CB0-E14FE5228CD2}
