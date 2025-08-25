@@ -15,5 +15,6 @@ namespace AdminPanel.Data.Interfaces
         void Update(T entity);
         void Delete(T entity);
         Task<int> Count();
+        Task<int> CountDeleted();
     }
 }

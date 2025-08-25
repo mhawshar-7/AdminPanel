@@ -27,6 +27,11 @@ namespace AdminPanel.Application.Implementations
             var count = await _unitOfWork.Repository<Project>().Count();
             return count;
         }
+        public async Task<int> CountDeleted()
+        {
+            var count = await _unitOfWork.Repository<Project>().CountDeleted();
+            return count;
+        }
 
         public async Task<int> CountWithSpecAsync(ISpecification<Project> spec)
         {

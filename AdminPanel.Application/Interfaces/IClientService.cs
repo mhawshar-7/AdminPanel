@@ -11,6 +11,7 @@ namespace AdminPanel.Data.Interfaces
         Task Save(ClientDto dto);
         Task Remove(int id);
         Task<int> Count();
+        Task<int> CountDeleted();
         Task<int> CountWithSpecAsync(ISpecification<Client> spec);
 
     }

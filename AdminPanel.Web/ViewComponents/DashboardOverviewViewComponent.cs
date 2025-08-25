@@ -1,21 +1,13 @@
-using AdminPanel.Data.Interfaces;
+using AdminPanel.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdminPanel.Web.ViewComponents
 {
     public class DashboardOverviewViewComponent : ViewComponent
     {
-        private readonly IProjectService _projectService;
-
-        public DashboardOverviewViewComponent(IProjectService projectService)
+        public IViewComponentResult Invoke(EntityStatsModel model)
         {
-            _projectService = projectService;
-        }
-
-        public async Task<IViewComponentResult> InvokeAsync()
-        {
-            var projectCount = await _projectService.Count();
-            return View(projectCount);
+            return View(model);
         }
     }
 }

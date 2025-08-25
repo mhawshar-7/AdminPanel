@@ -145,5 +145,6 @@ namespace AdminPanel.Web.Controllers
             await _projectService.Remove(id);
             return RedirectToAction("Index", "Projects");
         }
+
     }
 }

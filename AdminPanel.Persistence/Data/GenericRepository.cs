@@ -18,6 +18,10 @@ namespace AdminPanel.Persistence.Data
         {
 			return _context.Set<T>().CountAsync(x => !x.IsDeleted);
         }
+        public Task<int> CountDeleted()
+        {
+            return _context.Set<T>().CountAsync(x => x.IsDeleted);
+        }
 
         public async Task<int> CountAsync(ISpecification<T> spec)
         {
