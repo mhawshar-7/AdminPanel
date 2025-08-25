@@ -1,12 +1,7 @@
 ﻿using AdminPanel.Data.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AdminPanel.Application.Interfaces
+namespace AdminPanel.Persistence.Repositories.Interfaces
 {
     public interface IAuthRepository
     {

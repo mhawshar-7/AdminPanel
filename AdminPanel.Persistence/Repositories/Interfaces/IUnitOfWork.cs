@@ -1,7 +1,4 @@
-﻿using AdminPanel.Application.Interfaces;
-using AdminPanel.Data.Entities;
-
-namespace AdminPanel.Data.Interfaces
+﻿namespace AdminPanel.Persistence.Repositories.Interfaces
 {
 	public interface IUnitOfWork
 	{

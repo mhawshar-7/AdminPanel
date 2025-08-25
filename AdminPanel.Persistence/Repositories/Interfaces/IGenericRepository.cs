@@ -1,7 +1,6 @@
-using AdminPanel.Data.Entities;
-using AdminPanel.Data.Entities.Identity;
+using AdminPanel.Data.Interfaces;
 
-namespace AdminPanel.Data.Interfaces
+namespace AdminPanel.Persistence.Repositories.Interfaces
 {
     public interface IGenericRepository<T>
     {
@@ -15,5 +14,6 @@ namespace AdminPanel.Data.Interfaces
         void Update(T entity);
         void Delete(T entity);
         Task<int> Count();
+        Task<int> CountDeleted();
     }
 }

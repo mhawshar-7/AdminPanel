@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AdminPanel.Data\AdminPanel.Data.csproj" />
+    <ProjectReference Include="..\AdminPanel.Persistence\AdminPanel.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,7 @@
 ﻿using AdminPanel.Application.Dtos;
 using AdminPanel.Data.Entities;
 using AdminPanel.Data.Interfaces;
+using AdminPanel.Persistence.Repositories.Interfaces;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,11 @@ namespace AdminPanel.Application.Implementations
         public async Task<int> Count()
         {
             var count = await _unitOfWork.Repository<Project>().Count();
+            return count;
+        }
+        public async Task<int> CountDeleted()
+        {
+            var count = await _unitOfWork.Repository<Project>().CountDeleted();
             return count;
         }
 

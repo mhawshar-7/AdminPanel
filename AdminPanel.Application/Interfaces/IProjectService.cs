@@ -10,6 +10,7 @@ namespace AdminPanel.Data.Interfaces
         Task Save(ProjectDto dto);
         Task Remove(int id);
         Task<int> Count();
+        Task<int> CountDeleted();
         Task<int> CountWithSpecAsync(ISpecification<Project> spec);
 
     }

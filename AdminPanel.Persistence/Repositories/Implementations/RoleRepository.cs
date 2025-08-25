@@ -1,10 +1,8 @@
-﻿using AdminPanel.Application.Interfaces;
-using AdminPanel.Data.Entities.Identity;
-using AdminPanel.Data.Interfaces;
+﻿using AdminPanel.Data.Entities.Identity;
+using AdminPanel.Persistence.Repositories.Interfaces;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
-namespace AdminPanel.Persistence.Data
+namespace AdminPanel.Persistence.Repositories.Implementations
 {
     public class RoleRepository: IRoleRepository
     {

@@ -25,12 +25,6 @@ namespace AdminPanel.Web.Controllers
             return View();
         }
 
-        [HttpGet]
-        public IActionResult Examples()
-        {
-            return View();
-        }
-
         [HttpPost]
         public async Task<IActionResult> GetProjectsData()
         {
@@ -145,5 +139,6 @@ namespace AdminPanel.Web.Controllers
             await _projectService.Remove(id);
             return RedirectToAction("Index", "Projects");
         }
+
     }
 }

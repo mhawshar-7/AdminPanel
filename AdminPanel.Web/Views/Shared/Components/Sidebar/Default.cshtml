@@ -43,7 +43,7 @@
         <div id="kt_app_sidebar_menu_wrapper" class="app-sidebar-wrapper">
             <div id="kt_app_sidebar_menu_scroll" class="scroll-y my-5 mx-3" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-height="auto" data-kt-scroll-dependencies="#kt_app_sidebar_logo, #kt_app_sidebar_footer" data-kt-scroll-wrappers="#kt_app_sidebar_menu" data-kt-scroll-offset="5px" data-kt-scroll-save-state="true">
                 <div class="menu menu-column menu-rounded menu-sub-indention fw-semibold fs-6" id="#kt_app_sidebar_menu" data-kt-menu="true" data-kt-menu-expand="false">
-                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion @IsSectionActive("Home")">
+                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion @IsSectionActive("Dashboard")">
                         <span class="menu-link">
                             <span class="menu-icon">
                                 <i class="ki-duotone ki-element-11 fs-2">
@@ -58,11 +58,31 @@
                         </span>
                         <div class="menu-sub menu-sub-accordion">
                             <div class="menu-item">
-                                <a class="menu-link @IsActive("Home", "Index")" asp-area="" asp-controller="Home" asp-action="Index">
+                                <a class="menu-link @IsActive("Dashboard", "Index")" asp-controller="Dashboard" asp-action="Index">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
                                     <span class="menu-title">Default</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="menu-sub menu-sub-accordion">
+                            <div class="menu-item">
+                                <a class="menu-link @IsActive("Dashboard", "Projects")" asp-controller="Dashboard" asp-action="Projects">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Projects</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="menu-sub menu-sub-accordion">
+                            <div class="menu-item">
+                                <a class="menu-link @IsActive("Dashboard", "Clients")" asp-controller="Dashboard" asp-action="Clients">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Clients</span>
                                 </a>
                             </div>
                         </div>

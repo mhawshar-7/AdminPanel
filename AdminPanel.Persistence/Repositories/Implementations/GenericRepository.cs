@@ -1,9 +1,9 @@
-﻿
-using AdminPanel.Data.Entities;
-using AdminPanel.Data.Interfaces;
+﻿using AdminPanel.Data.Interfaces;
+using AdminPanel.Persistence.Data;
+using AdminPanel.Persistence.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace AdminPanel.Persistence.Data
+namespace AdminPanel.Persistence.Repositories.Implementations
 {
 	public class GenericRepository<T> : IGenericRepository<T> where T : class, ISoftDeletable
 	{
@@ -17,6 +17,10 @@ namespace AdminPanel.Persistence.Data
         public Task<int> Count()
         {
 			return _context.Set<T>().CountAsync(x => !x.IsDeleted);
+        }
+        public Task<int> CountDeleted()
+        {
+            return _context.Set<T>().CountAsync(x => x.IsDeleted);
         }
 
         public async Task<int> CountAsync(ISpecification<T> spec)

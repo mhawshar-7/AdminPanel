@@ -1,8 +1,7 @@
 ﻿using AdminPanel.Data.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
-using AdminPanel.Data.Interfaces;
 
-namespace AdminPanel.Application.Interfaces
+namespace AdminPanel.Persistence.Repositories.Interfaces
 {
     public interface IUserRepository
     {

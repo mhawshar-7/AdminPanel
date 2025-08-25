@@ -1,13 +1,8 @@
 ﻿using AdminPanel.Application.Dtos;
 using AdminPanel.Data.Entities;
 using AdminPanel.Data.Interfaces;
+using AdminPanel.Persistence.Repositories.Interfaces;
 using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AdminPanel.Application.Implementations
 {
@@ -27,7 +22,11 @@ namespace AdminPanel.Application.Implementations
             var count = await _unitOfWork.Repository<Client>().Count();
             return count;
         }
-
+        public async Task<int> CountDeleted()
+        {
+            var count = await _unitOfWork.Repository<Client>().CountDeleted();
+            return count;
+        }
         public async Task<IReadOnlyList<ClientDto>> GetAll()
         {
             var list = await _unitOfWork.Repository<Client>().ListAllAsync();
