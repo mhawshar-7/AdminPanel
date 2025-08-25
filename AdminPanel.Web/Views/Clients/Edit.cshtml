@@ -1,7 +1,7 @@
 ﻿@model AdminPanel.Web.Models.ClientViewModel
 @using Microsoft.AspNetCore.Mvc.Rendering
 @{
-    ViewData["Title"] = Model?.Id > 0 ? "Edit Client" : "Create Client";
+    ViewData["Title"] = Model?.Id != Guid.Empty ? "Edit Client" : "Create Client";
 }
 
 <!--begin::Form wrapper-->

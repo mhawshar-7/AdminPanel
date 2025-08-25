@@ -8,6 +8,6 @@ namespace AdminPanel.Data.Specifications
 {
     public class ProjectSpecParams: BaseSpecParams
     {
-        public int? ClientId { get; set; }
+        public Guid? ClientId { get; set; }
     }
 }

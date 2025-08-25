@@ -33,7 +33,7 @@ namespace AdminPanel.Application.Implementations
             return _mapper.Map<IReadOnlyList<ClientDto>>(list);
         }
 
-        public async Task<ClientDto> GetById(int id)
+        public async Task<ClientDto> GetById(Guid id)
         {
             var client = await _unitOfWork.Repository<Client>().GetByIdAsync(id);
             return _mapper.Map<ClientDto>(client);
@@ -45,7 +45,7 @@ namespace AdminPanel.Application.Implementations
             return _mapper.Map<IReadOnlyList<IdNameDto>>(list);
         }
 
-        public async Task Remove(int id)
+        public async Task Remove(Guid id)
         {
             var client = await _unitOfWork.Repository<Client>().GetByIdAsync(id);
             _unitOfWork.Repository<Client>().Delete(client);
@@ -55,7 +55,7 @@ namespace AdminPanel.Application.Implementations
         public async Task Save(ClientDto dto)
         {
             Client client;
-            if (dto.Id == 0)
+            if (dto.Id == Guid.Empty)
             {
                 client = new Client(dto.Name, dto.Email)
                 {

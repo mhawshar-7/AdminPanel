@@ -58,7 +58,7 @@ namespace AdminPanel.Data.Specifications
             }
         }
 
-        public ClientsSpecification(int id) : base(x => x.Id == id)
+        public ClientsSpecification(Guid id) : base(x => x.Id == id)
         {
         }
     }

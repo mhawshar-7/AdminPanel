@@ -53,7 +53,7 @@ namespace AdminPanel.Web.Controllers
 
                 var data = clients.Select(s => new
                 {
-                    id = s.Id,
+                    id = s.Id.ToString(),
                     name = s.Name,
                     email = s.Email,
                     phone = s.Phone,
@@ -76,11 +76,11 @@ namespace AdminPanel.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(Guid? id)
         {
             ClientViewModel model = new();
             var clients = await _clientService.GetIdNameClients();
-            if (id.HasValue && id.Value > 0)
+            if (id.HasValue && id.Value != Guid.Empty)
             {
                 var dto = await _clientService.GetById(id.Value);
                 if (dto is not null)
@@ -119,7 +119,7 @@ namespace AdminPanel.Web.Controllers
             return RedirectToAction("Index", "Clients");
         }
 
-        public async Task<ActionResult> Remove(int id)
+        public async Task<ActionResult> Remove(Guid id)
         {
             await _clientService.Remove(id);
             return RedirectToAction("Index", "Clients");

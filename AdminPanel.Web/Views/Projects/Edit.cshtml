@@ -1,7 +1,7 @@
 ﻿@model AdminPanel.Web.Models.ProjectViewModel
 @using Microsoft.AspNetCore.Mvc.Rendering
 @{
-    ViewData["Title"] = Model?.Id > 0 ? "Edit Project" : "Create Project";
+    ViewData["Title"] = Model?.Id != Guid.Empty ? "Edit Project" : "Create Project";
 }
 
 <!--begin::Form wrapper-->

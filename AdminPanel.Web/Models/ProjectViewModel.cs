@@ -5,7 +5,7 @@ namespace AdminPanel.Web.Models
 {
     public class ProjectViewModel
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string? ModifiedDate { get; set; }
         [Required]
         public string Name { get; set; }
@@ -21,7 +21,7 @@ namespace AdminPanel.Web.Models
         [DataType(DataType.Currency)]
         [Range(0, double.MaxValue, ErrorMessage = "Budget must be a positive value")]        
         public decimal? Budget { get; set; }
-        public int? ClientId { get; set; }
+        public Guid? ClientId { get; set; }
         public IEnumerable<SelectListItem>? Clients { get; set; }
     }
 }

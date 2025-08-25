@@ -10,7 +10,7 @@ namespace AdminPanel.Application.Dtos
 {
     public class ProjectDto
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public string? Description { get; set; }
         public DateTime? CreatedDate { get; set; }
@@ -18,6 +18,6 @@ namespace AdminPanel.Application.Dtos
         public DateTime? EndDate { get; set; }
         public ProjectStatus Status { get; set; }
         public decimal Budget { get; set; }
-        public int ClientId { get; set; }
+        public Guid? ClientId { get; set; }
     }
 }
