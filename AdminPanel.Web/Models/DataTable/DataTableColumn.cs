@@ -8,7 +8,6 @@ namespace AdminPanel.Web.Models.DataTable
         public bool Sortable { get; set; } = true;
         public bool Searchable { get; set; } = true;
         public string? Width { get; set; }
-        public string? ClassName { get; set; }
         public string? Render { get; set; }
         public DataTableColumnType Type { get; set; } = DataTableColumnType.String;
     }

@@ -25,12 +25,6 @@ namespace AdminPanel.Web.Controllers
             return View();
         }
 
-        [HttpGet]
-        public IActionResult Examples()
-        {
-            return View();
-        }
-
         [HttpPost]
         public async Task<IActionResult> GetProjectsData()
         {

@@ -23,6 +23,19 @@ namespace AdminPanel.Web.Controllers
             _clientService = clientService;
         }
 
+        public async Task<IActionResult> Index()
+        {
+            var activeCount = await _projectService.Count();
+            var deletedCount = await _projectService.CountDeleted();
+
+            var projectStats = new EntityStatsModel
+            {
+                EntityName = "",
+                ActiveCount = activeCount,
+                DeletedCount = deletedCount
+            };
+            return View(projectStats);
+        }
         public async Task<IActionResult> Projects()
         {
             var activeCount = await _projectService.Count();

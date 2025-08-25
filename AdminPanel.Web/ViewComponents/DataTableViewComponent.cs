@@ -30,7 +30,6 @@ namespace AdminPanel.Web.ViewComponents
                         Title = "Actions",
                         Sortable = false,
                         Searchable = false,
-                        ClassName = "text-end min-w-70px",
                         Type = DataTableColumnType.Html
                     });
                 }
