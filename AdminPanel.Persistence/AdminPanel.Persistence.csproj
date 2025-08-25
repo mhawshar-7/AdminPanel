@@ -16,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AdminPanel.Application\AdminPanel.Application.csproj" />
     <ProjectReference Include="..\AdminPanel.Data\AdminPanel.Data.csproj" />
   </ItemGroup>
 
