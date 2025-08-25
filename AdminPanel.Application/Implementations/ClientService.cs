@@ -1,6 +1,7 @@
 ﻿using AdminPanel.Application.Dtos;
 using AdminPanel.Data.Entities;
 using AdminPanel.Data.Interfaces;
+using AdminPanel.Persistence.Repositories.Interfaces;
 using AutoMapper;
 
 namespace AdminPanel.Application.Implementations

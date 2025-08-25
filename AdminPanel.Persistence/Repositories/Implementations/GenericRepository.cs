@@ -1,9 +1,9 @@
-﻿
-using AdminPanel.Data.Entities;
-using AdminPanel.Data.Interfaces;
+﻿using AdminPanel.Data.Interfaces;
+using AdminPanel.Persistence.Data;
+using AdminPanel.Persistence.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace AdminPanel.Persistence.Data
+namespace AdminPanel.Persistence.Repositories.Implementations
 {
 	public class GenericRepository<T> : IGenericRepository<T> where T : class, ISoftDeletable
 	{

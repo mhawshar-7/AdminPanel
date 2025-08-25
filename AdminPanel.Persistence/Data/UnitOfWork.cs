@@ -1,6 +1,5 @@
-﻿using AdminPanel.Application.Interfaces;
-using AdminPanel.Data.Entities;
-using AdminPanel.Data.Interfaces;
+﻿using AdminPanel.Persistence.Repositories.Implementations;
+using AdminPanel.Persistence.Repositories.Interfaces;
 using System.Collections;
 
 namespace AdminPanel.Persistence.Data

@@ -5,6 +5,8 @@ using AdminPanel.Data.Entities;
 using AdminPanel.Data.Entities.Identity;
 using AdminPanel.Data.Interfaces;
 using AdminPanel.Persistence.Data;
+using AdminPanel.Persistence.Repositories.Implementations;
+using AdminPanel.Persistence.Repositories.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 

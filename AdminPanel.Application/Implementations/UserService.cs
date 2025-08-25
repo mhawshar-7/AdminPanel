@@ -3,6 +3,7 @@ using AdminPanel.Application.Interfaces;
 using AdminPanel.Data.Entities;
 using AdminPanel.Data.Entities.Identity;
 using AdminPanel.Data.Interfaces;
+using AdminPanel.Persistence.Repositories.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using System;

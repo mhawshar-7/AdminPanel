@@ -1,13 +1,8 @@
-﻿using AdminPanel.Application.Interfaces;
-using AdminPanel.Data.Entities.Identity;
+﻿using AdminPanel.Data.Entities.Identity;
+using AdminPanel.Persistence.Repositories.Interfaces;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AdminPanel.Persistence.Data
+namespace AdminPanel.Persistence.Repositories.Implementations
 {
     public class AuthRepository: IAuthRepository
     {

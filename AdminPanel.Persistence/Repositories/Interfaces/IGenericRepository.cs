@@ -1,7 +1,6 @@
-using AdminPanel.Data.Entities;
-using AdminPanel.Data.Entities.Identity;
+using AdminPanel.Data.Interfaces;
 
-namespace AdminPanel.Data.Interfaces
+namespace AdminPanel.Persistence.Repositories.Interfaces
 {
     public interface IGenericRepository<T>
     {
