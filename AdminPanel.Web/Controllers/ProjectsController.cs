@@ -55,7 +55,7 @@ namespace AdminPanel.Web.Controllers
 
                 var data = projects.Select(s => new
                 {
-                    id = s.Id,
+                    id = s.Id.ToString(),
                     name = s.Name,
                     description = s.Description,
                     status = s.Status.ToString(),
@@ -80,11 +80,11 @@ namespace AdminPanel.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(Guid? id)
         {
             ProjectViewModel model = new();
             var clients = await _clientService.GetIdNameClients();
-            if (id.HasValue && id.Value > 0)
+            if (id.HasValue && id.Value != Guid.Empty)
             {
                 var dto = await _projectService.GetById(id.Value);
                 if (dto is not null)
@@ -128,17 +128,16 @@ namespace AdminPanel.Web.Controllers
                 EndDate = model.EndDate,
                 Status = model.Status,
                 Budget = model.Budget ?? 0,
-                ClientId = model.ClientId ?? 0
+                ClientId = model.ClientId ?? Guid.Empty
             };
             await _projectService.Save(dto);
             return RedirectToAction("Index", "Projects");
         }
 
-        public async Task<ActionResult> Remove(int id)
+        public async Task<ActionResult> Remove(Guid id)
         {
             await _projectService.Remove(id);
             return RedirectToAction("Index", "Projects");
         }
-
     }
 }

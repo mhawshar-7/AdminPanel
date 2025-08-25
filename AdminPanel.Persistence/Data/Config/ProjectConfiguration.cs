@@ -30,6 +30,9 @@ namespace AdminPanel.Persistence.Data.Config
             builder.Property(p => p.Budget)
                    .HasColumnType("decimal(18,2)");
 
+            builder.Property(p => p.ClientId)
+                   .IsRequired(false);
+
             builder.HasOne(p => p.Client)
                    .WithMany(c => c.Projects)
                    .HasForeignKey(p => p.ClientId)

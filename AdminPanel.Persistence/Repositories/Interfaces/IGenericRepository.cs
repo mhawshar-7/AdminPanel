@@ -4,7 +4,7 @@ namespace AdminPanel.Persistence.Repositories.Interfaces
 {
     public interface IGenericRepository<T>
     {
-        Task<T> GetByIdAsync(int id);
+        Task<T> GetByIdAsync(Guid id);
         Task<IReadOnlyList<T>> ListAllAsync();
         Task<IReadOnlyList<T>> ListDeletedAsync();
         Task<T> GetEntityWithSpec(ISpecification<T> spec);

@@ -21,6 +21,19 @@ namespace AdminPanel.Persistence.Data
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+            // Configure sequential GUID generation for BaseEntity derived classes
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+            {
+                if (typeof(BaseEntity).IsAssignableFrom(entityType.ClrType))
+                {
+                    var idProp = entityType.FindProperty("Id");
+                    if (idProp != null && idProp.ClrType == typeof(Guid))
+                    {
+                        idProp.SetDefaultValueSql("NEWSEQUENTIALID()");
+                    }
+                }
+            }
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

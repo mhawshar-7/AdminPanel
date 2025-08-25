@@ -2,9 +2,9 @@
 
 namespace AdminPanel.Data.Entities
 {
-    public class BaseEntity: ISoftDeletable
+    public abstract class BaseEntity: ISoftDeletable
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime ModifiedDate { get; set; }
         public bool IsDeleted { get; set; }

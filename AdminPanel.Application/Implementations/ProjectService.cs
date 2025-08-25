@@ -51,13 +51,13 @@ namespace AdminPanel.Application.Implementations
             return _mapper.Map<IReadOnlyList<ProjectDto>>(list);
         }
 
-        public async Task<ProjectDto> GetById(int id)
+        public async Task<ProjectDto> GetById(Guid id)
         {
             var project = await _unitOfWork.Repository<Project>().GetByIdAsync(id);
             return _mapper.Map<ProjectDto>(project);
         }
 
-        public async Task Remove(int id)
+        public async Task Remove(Guid id)
         {
             var project = await _unitOfWork.Repository<Project>().GetByIdAsync(id);
             _unitOfWork.Repository<Project>().Delete(project);
@@ -68,13 +68,13 @@ namespace AdminPanel.Application.Implementations
         {
             Project project;
             Client client = null;
-            if (dto.ClientId != 0)
+            if (dto.ClientId != Guid.Empty)
             {
-                client = await _unitOfWork.Repository<Client>().GetByIdAsync(dto.ClientId) ??
+                client = await _unitOfWork.Repository<Client>().GetByIdAsync(dto.ClientId.Value) ??
                          throw new ArgumentNullException(nameof(client), "Client not found"); ;
             }
 
-            if (dto.Id == 0)
+            if (dto.Id == Guid.Empty)
             {
                 project = new Project(dto.Name)
                 {

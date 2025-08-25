@@ -4,14 +4,13 @@ namespace AdminPanel.Data.Interfaces
 {
     public interface IProjectService
     {
-        Task<ProjectDto> GetById(int id);
+        Task<ProjectDto> GetById(Guid id);
         Task<IReadOnlyList<ProjectDto>> GetAll();
         Task<IReadOnlyList<ProjectDto>> GetAllWithSpec(ISpecification<Project> spec);
         Task Save(ProjectDto dto);
-        Task Remove(int id);
+        Task Remove(Guid id);
         Task<int> Count();
         Task<int> CountDeleted();
         Task<int> CountWithSpecAsync(ISpecification<Project> spec);
-
     }
 }

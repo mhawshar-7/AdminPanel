@@ -64,7 +64,7 @@ namespace AdminPanel.Data.Specifications
             }
         }
 
-        public ProjectsSpecification(int id) : base(x => x.Id == id)
+        public ProjectsSpecification(Guid id) : base(x => x.Id == id)
         {
             AddInclude(x => x.Client);
         }
